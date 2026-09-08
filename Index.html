@@ -2,70 +2,131 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Dispensaire C-137 - Menu Feuilletable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dispensaire Interdimensionnel C-137</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      background: #0b0c10;
+      background: #090a0f;
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(57, 255, 20, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(102, 252, 241, 0.05) 0%, transparent 40%);
       color: #66fcf1;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
     }
     .title {
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px #45a29e;
-      text-align: center;
+      font-size: 1.8rem;
+      text-shadow: 0 0 12px #39ff14, 0 0 25px rgba(57, 255, 20, 0.3);
+      color: #39ff14;
+      letter-spacing: 1px;
     }
-    /* Conteneur 3D */
+    .subtitle {
+      color: #c5c6c7;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      opacity: 0.8;
+    }
+
+    /* Conteneur Livre 3D */
     .book-container {
-      width: 340px;
-      height: 480px;
+      width: 330px;
+      height: 490px;
       perspective: 1500px;
       position: relative;
     }
+
     .page {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
-      background: #1f2833;
-      border: 2px solid #45a29e;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 0 20px rgba(102, 252, 241, 0.15);
-      backface-visibility: hidden;
+      transform-style: preserve-3d;
       transform-origin: left center;
       transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
+
     .page.flipped {
       transform: rotateY(-180deg);
     }
+
+    /* Face Avant & Arrière de chaque page */
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid #45a29e;
+      box-shadow: 0 0 25px rgba(102, 252, 241, 0.15);
+    }
+
+    .front {
+      background: #1f2833;
+    }
+
+    .back {
+      background: #11161d;
+      transform: rotateY(180deg);
+      border-color: #39ff14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background-image: radial-gradient(circle, rgba(57, 255, 20, 0.15) 0%, transparent 70%);
+    }
+
+    .back-content {
+      border: 1px dashed #39ff14;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    /* Éléments de contenu */
     .strain-title {
       color: #39ff14;
       font-size: 1.3rem;
       border-bottom: 2px solid #45a29e;
       padding-bottom: 8px;
       margin-bottom: 15px;
+      text-transform: uppercase;
     }
     .thc {
       background: #45a29e;
       color: #0b0c10;
       display: inline-block;
-      padding: 4px 8px;
+      padding: 4px 10px;
       font-weight: bold;
       border-radius: 4px;
       margin-bottom: 15px;
+      font-size: 0.85rem;
     }
-    .info { color: #c5c6c7; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; }
+    .info { 
+      color: #c5c6c7; 
+      font-size: 0.95rem; 
+      line-height: 1.5; 
+      margin-bottom: 12px; 
+    }
     .quote {
       background: #0b0c10;
       border-left: 3px solid #39ff14;
@@ -73,83 +134,148 @@
       font-style: italic;
       color: #66fcf1;
       font-size: 0.85rem;
+      border-radius: 0 6px 6px 0;
     }
+
+    /* Navigation & Compteur */
+    .counter {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #45a29e;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
     .controls {
-      margin-top: 30px;
+      margin-top: 15px;
       display: flex;
-      gap: 20px;
+      gap: 15px;
     }
+
     button {
       background: #39ff14;
       color: #0b0c10;
       border: none;
       padding: 12px 24px;
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 0.95rem;
       border-radius: 20px;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+      box-shadow: 0 0 12px rgba(57, 255, 20, 0.4);
       transition: all 0.2s ease;
     }
-    button:hover {
+
+    button:hover:not(:disabled) {
       background: #66fcf1;
-      box-shadow: 0 0 15px #66fcf1;
-      transform: scale(1.05);
+      box-shadow: 0 0 18px #66fcf1;
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    @media (max-width: 400px) {
+      .book-container {
+        width: 290px;
+        height: 450px;
+      }
+      .title { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
 
-<h1 class="title">🛸 Dispensaire Interdimensionnel C-137 🌌</h1>
+<div class="header">
+  <h1 class="title">🛸 DISPENSAIRE C-137 🌌</h1>
+  <p class="subtitle">Menu Interdimensionnel Officiel</p>
+</div>
 
-<div class="book-container">
-  <!-- Page 3 (Dernière) -->
+<div class="book-container" id="book">
+  <!-- Page 3 -->
   <div class="page" id="page3" style="z-index: 1;">
-    <div>
-      <h2 class="strain-title">🍦 ICE CREAM CAKE</h2>
-      <div class="thc">THC : 16% – 17%</div>
-      <p class="info"><b>👅 Profil :</b> Onctueux, vanille douce, touches sucrées et de beurre.</p>
-      <p class="info"><b>🌀 Effets :</b> Apaisement très doux, réduction du stress sans lourdeur.</p>
+    <div class="face front">
+      <div>
+        <h2 class="strain-title">🍦 ICE CREAM CAKE</h2>
+        <div class="thc">THC : 16% – 17%</div>
+        <p class="info"><b>👅 Profil :</b> Onctueux, vanille douce, touches sucrées et de beurre.</p>
+        <p class="info"><b>🌀 Effets :</b> Apaisement très doux, réduction du stress sans lourdeur.</p>
+      </div>
+      <div class="quote">"L'existence est une douleur, mais ça, ça dissout l'angoisse cosmique." — Rick</div>
     </div>
-    <div class="quote">"L'existence est une douleur, mais ça, ça dissout l'angoisse cosmique." — Rick</div>
+    <div class="face back">
+      <div class="back-content">
+        <h3>🌀 PORTAL READY</h3>
+        <p style="margin-top: 10px; font-size: 0.8rem; color: #c5c6c7;">Fin du catalogue de la Dimension C-137</p>
+      </div>
+    </div>
   </div>
 
   <!-- Page 2 -->
   <div class="page" id="page2" style="z-index: 2;">
-    <div>
-      <h2 class="strain-title">🍪 GIRL SCOUT COOKIES</h2>
-      <div class="thc">THC : 18% – 19%</div>
-      <p class="info"><b>👅 Profil :</b> Sucré, terreux, nuances légères de menthe et biscuit.</p>
-      <p class="info"><b>🌀 Effets :</b> Clarification mentale, bonne humeur et détente fonctionnelle.</p>
+    <div class="face front">
+      <div>
+        <h2 class="strain-title">🍪 GIRL SCOUT COOKIES</h2>
+        <div class="thc">THC : 18% – 19%</div>
+        <p class="info"><b>👅 Profil :</b> Sucré, terreux, nuances légères de menthe et biscuit.</p>
+        <p class="info"><b>🌀 Effets :</b> Clarification mentale, bonne humeur et détente fonctionnelle.</p>
+      </div>
+      <div class="quote">"Parfait pour ne pas baver sur ton pistolet à portails." — Rick</div>
     </div>
-    <div class="quote">"Parfait pour ne pas baver sur ton pistolet à portails." — Rick</div>
+    <div class="face back">
+      <div class="back-content">
+        <h3>🧪 APPROUVÉ PAR RICK</h3>
+      </div>
+    </div>
   </div>
 
-  <!-- Page 1 (Première) -->
+  <!-- Page 1 -->
   <div class="page" id="page1" style="z-index: 3;">
-    <div>
-      <h2 class="strain-title">🎂 WEDDING CAKE</h2>
-      <div class="thc">THC : 21% – 22%</div>
-      <p class="info"><b>👅 Profil :</b> Vanille, pâte à gâteau, notes terreuses et poivrées.</p>
-      <p class="info"><b>🌀 Effets :</b> Euphorie cérébrale et relaxation musculaire bien équilibrée.</p>
+    <div class="face front">
+      <div>
+        <h2 class="strain-title">🎂 WEDDING CAKE</h2>
+        <div class="thc">THC : 21% – 22%</div>
+        <p class="info"><b>👅 Profil :</b> Vanille, pâte à gâteau, notes terreuses et poivrées.</p>
+        <p class="info"><b>🌀 Effets :</b> Euphorie cérébrale et relaxation musculaire bien équilibrée.</p>
+      </div>
+      <div class="quote">"Ton cerveau va surfer sur un trou de ver, Morty !" — Rick</div>
     </div>
-    <div class="quote">"Ton cerveau va surfer sur un trou de ver, Morty !" — Rick</div>
+    <div class="face back">
+      <div class="back-content">
+        <h3>🛸 DISPENSAIRE C-137</h3>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="counter" id="pageCounter">Page 1 / 3</div>
+
 <div class="controls">
-  <button onclick="prevPage()">◀ Précédent</button>
-  <button onclick="nextPage()">Suivant ▶</button>
+  <button id="prevBtn" onclick="prevPage()" disabled>◀ Précédent</button>
+  <button id="nextBtn" onclick="nextPage()">Suivant ▶</button>
 </div>
 
 <script>
   let currentPage = 1;
   const totalPages = 3;
 
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pageCounter = document.getElementById('pageCounter');
+
+  function updateUI() {
+    pageCounter.textContent = `Page ${currentPage} / ${totalPages}`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage > totalPages;
+  }
+
   function nextPage() {
     if (currentPage <= totalPages) {
       document.getElementById(`page${currentPage}`).classList.add('flipped');
       currentPage++;
+      updateUI();
     }
   }
 
@@ -157,8 +283,29 @@
     if (currentPage > 1) {
       currentPage--;
       document.getElementById(`page${currentPage}`).classList.remove('flipped');
+      updateUI();
     }
   }
+
+  // Navigation au clavier
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextPage();
+    if (e.key === 'ArrowLeft') prevPage();
+  });
+
+  // Gestion du swipe sur mobile
+  let touchStartX = 0;
+  const book = document.getElementById('book');
+
+  book.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  book.addEventListener('touchend', (e) => {
+    let touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 40) nextPage(); // Swipe gauche -> page suivante
+    if (touchEndX - touchStartX > 40) prevPage(); // Swipe droite -> page précédente
+  });
 </script>
 
 </body>
