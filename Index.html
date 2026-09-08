@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dispensaire C-137 - Menu Feuilletable</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0b0c10;
+      color: #66fcf1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .title {
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #45a29e;
+      text-align: center;
+    }
+    /* Conteneur 3D */
+    .book-container {
+      width: 340px;
+      height: 480px;
+      perspective: 1500px;
+      position: relative;
+    }
+    .page {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #1f2833;
+      border: 2px solid #45a29e;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(102, 252, 241, 0.15);
+      backface-visibility: hidden;
+      transform-origin: left center;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .page.flipped {
+      transform: rotateY(-180deg);
+    }
+    .strain-title {
+      color: #39ff14;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #45a29e;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
+    .thc {
+      background: #45a29e;
+      color: #0b0c10;
+      display: inline-block;
+      padding: 4px 8px;
+      font-weight: bold;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .info { color: #c5c6c7; font-size: 0.95rem; line-height: 1.5; margin-bottom: 12px; }
+    .quote {
+      background: #0b0c10;
+      border-left: 3px solid #39ff14;
+      padding: 10px;
+      font-style: italic;
+      color: #66fcf1;
+      font-size: 0.85rem;
+    }
+    .controls {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+    }
+    button {
+      background: #39ff14;
+      color: #0b0c10;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background: #66fcf1;
+      box-shadow: 0 0 15px #66fcf1;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+<h1 class="title">🛸 Dispensaire Interdimensionnel C-137 🌌</h1>
+
+<div class="book-container">
+  <!-- Page 3 (Dernière) -->
+  <div class="page" id="page3" style="z-index: 1;">
+    <div>
+      <h2 class="strain-title">🍦 ICE CREAM CAKE</h2>
+      <div class="thc">THC : 16% – 17%</div>
+      <p class="info"><b>👅 Profil :</b> Onctueux, vanille douce, touches sucrées et de beurre.</p>
+      <p class="info"><b>🌀 Effets :</b> Apaisement très doux, réduction du stress sans lourdeur.</p>
+    </div>
+    <div class="quote">"L'existence est une douleur, mais ça, ça dissout l'angoisse cosmique." — Rick</div>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" id="page2" style="z-index: 2;">
+    <div>
+      <h2 class="strain-title">🍪 GIRL SCOUT COOKIES</h2>
+      <div class="thc">THC : 18% – 19%</div>
+      <p class="info"><b>👅 Profil :</b> Sucré, terreux, nuances légères de menthe et biscuit.</p>
+      <p class="info"><b>🌀 Effets :</b> Clarification mentale, bonne humeur et détente fonctionnelle.</p>
+    </div>
+    <div class="quote">"Parfait pour ne pas baver sur ton pistolet à portails." — Rick</div>
+  </div>
+
+  <!-- Page 1 (Première) -->
+  <div class="page" id="page1" style="z-index: 3;">
+    <div>
+      <h2 class="strain-title">🎂 WEDDING CAKE</h2>
+      <div class="thc">THC : 21% – 22%</div>
+      <p class="info"><b>👅 Profil :</b> Vanille, pâte à gâteau, notes terreuses et poivrées.</p>
+      <p class="info"><b>🌀 Effets :</b> Euphorie cérébrale et relaxation musculaire bien équilibrée.</p>
+    </div>
+    <div class="quote">"Ton cerveau va surfer sur un trou de ver, Morty !" — Rick</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="prevPage()">◀ Précédent</button>
+  <button onclick="nextPage()">Suivant ▶</button>
+</div>
+
+<script>
+  let currentPage = 1;
+  const totalPages = 3;
+
+  function nextPage() {
+    if (currentPage <= totalPages) {
+      document.getElementById(`page${currentPage}`).classList.add('flipped');
+      currentPage++;
+    }
+  }
+
+  function prevPage() {
+    if (currentPage > 1) {
+      currentPage--;
+      document.getElementById(`page${currentPage}`).classList.remove('flipped');
+    }
+  }
+</script>
+
+</body>
+</html>
