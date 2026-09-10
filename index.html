@@ -211,6 +211,17 @@
       padding-top: 4px;
       margin-top: 4px;
     }
+    .warning-box {
+      background: rgba(255, 68, 68, 0.15);
+      border: 1px solid #ff4444;
+      color: #ff4444;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 6px;
+      display: none;
+    }
 
     /* WhatsApp Button */
     .btn-whatsapp {
@@ -222,7 +233,7 @@
       font-weight: bold;
       font-size: 0.85rem;
       cursor: pointer;
-      display: flex;
+      display: none; /* Masqué par défaut jusqu'à validation */
       align-items: center;
       justify-content: center;
       gap: 6px;
@@ -230,12 +241,6 @@
       text-decoration: none;
       width: 100%;
       margin-top: 4px;
-    }
-    .btn-whatsapp:disabled {
-      background: #555;
-      color: #888;
-      box-shadow: none;
-      cursor: not-allowed;
     }
 
     /* Navigation */
@@ -294,7 +299,7 @@
     <div class="face front">
       <div>
         <h2 class="strain-title">🎂 WEDDING CAKE</h2>
-        <div class="thc">THC : 21% – 22%</div>
+        <div class="thc">10€ / Gramme</div>
         <p class="info"><b>👅 Profil :</b> Vanille, pâte à gâteau, notes terreuses et poivrées.</p>
         <p class="info"><b>🌀 Effets :</b> Euphorie cérébrale et relaxation musculaire bien équilibrée.</p>
       </div>
@@ -312,8 +317,8 @@
   <div class="page" id="page2" style="z-index: 3;">
     <div class="face front">
       <div>
-        <h2 class="strain-title">🍪 GIRL SCOUT COOKIES</h2>
-        <div class="thc">THC : 18% – 19%</div>
+        <h2 class="strain-title">🍪 G. S. COOKIES</h2>
+        <div class="thc">10€ / Gramme</div>
         <p class="info"><b>👅 Profil :</b> Sucré, terreux, nuances légères de menthe et biscuit.</p>
         <p class="info"><b>🌀 Effets :</b> Clarification mentale, bonne humeur et détente fonctionnelle.</p>
       </div>
@@ -332,7 +337,7 @@
     <div class="face front">
       <div>
         <h2 class="strain-title">🍦 ICE CREAM CAKE</h2>
-        <div class="thc">THC : 16% – 17%</div>
+        <div class="thc">5€ / Gramme</div>
         <p class="info"><b>👅 Profil :</b> Onctueux, vanille douce, touches sucrées et de beurre.</p>
         <p class="info"><b>🌀 Effets :</b> Apaisement très doux, réduction du stress sans lourdeur.</p>
       </div>
@@ -340,7 +345,7 @@
     </div>
     <div class="face back">
       <div style="text-align: center; margin: auto;">
-        <h3 style="color:#39ff14;">⚡ LIVRAISON TROTTINETTE</h3>
+        <h3 style="color:#39ff14;">⚡ LIVRAISON RAPIDE</h3>
         <p style="color:#c5c6c7; font-size: 0.8rem; margin-top:5px;">Passez commande à la page suivante</p>
       </div>
     </div>
@@ -356,8 +361,8 @@
         <div class="form-group">
           <label>1. Variétés & Quantités</label>
           <div class="strain-qty-row">
-            <span>Wedding Cake</span>
-            <select class="qty-select" data-strain="Wedding Cake" onchange="calculateOrder()">
+            <span>Wedding Cake (10€/g)</span>
+            <select class="qty-select" data-strain="Wedding Cake" data-price="10" onchange="calculateOrder()">
               <option value="0">0g</option>
               <option value="2">2g</option>
               <option value="4">4g</option>
@@ -374,8 +379,8 @@
             </select>
           </div>
           <div class="strain-qty-row">
-            <span>Girl Scout Cookies</span>
-            <select class="qty-select" data-strain="Girl Scout Cookies" onchange="calculateOrder()">
+            <span>G.S. Cookies (10€/g)</span>
+            <select class="qty-select" data-strain="Girl Scout Cookies" data-price="10" onchange="calculateOrder()">
               <option value="0">0g</option>
               <option value="2">2g</option>
               <option value="4">4g</option>
@@ -392,8 +397,8 @@
             </select>
           </div>
           <div class="strain-qty-row">
-            <span>Ice Cream Cake</span>
-            <select class="qty-select" data-strain="Ice Cream Cake" onchange="calculateOrder()">
+            <span>Ice Cream Cake (5€/g)</span>
+            <select class="qty-select" data-strain="Ice Cream Cake" data-price="5" onchange="calculateOrder()">
               <option value="0">0g</option>
               <option value="2">2g</option>
               <option value="4">4g</option>
@@ -448,15 +453,17 @@
             <span id="totalGrams">0 g</span>
           </div>
           <div class="summary-line">
-            <span>Temps estimé (Trottinette 25km/h) :</span>
+            <span>Temps estimé :</span>
             <span id="deliveryTime" style="color:#66fcf1;">--</span>
           </div>
           <div class="summary-line total">
             <span>Prix Total :</span>
             <span id="totalPrice">0 €</span>
           </div>
-          <div id="minWarning" style="color:#ff4444; font-size:0.7rem; margin-top:4px; display:none;"></div>
         </div>
+
+        <!-- Alerte Bloquante -->
+        <div id="minWarning" class="warning-box"></div>
 
         <!-- Bouton WhatsApp -->
         <a id="whatsappBtn" class="btn-whatsapp" href="#" target="_blank" onclick="return sendOrder(event)">
@@ -514,29 +521,11 @@
     "Woluwe-Saint-Pierre": { dist: 8.0, min: 40 }
   };
 
-  // Barème de tarifs
-  const priceGrid = {
-    0: 0,
-    2: 20,
-    4: 40,
-    6: 50,
-    8: 70,
-    10: 80,
-    12: 100,
-    14: 120,
-    16: 130,
-    18: 140,
-    20: 150,
-    22: 160,
-    24: 170
-  };
-
   function updateUI() {
     pageCounter.textContent = `Page ${currentPage} / ${totalPages}`;
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
 
-    // Gestion du z-index dynamique pour un rendu 3D propre sans chevauchement
     for (let i = 1; i <= totalPages; i++) {
       const page = document.getElementById(`page${i}`);
       if (i < currentPage) {
@@ -563,27 +552,24 @@
     }
   }
 
-  // Calcul du prix et du temps de trajet
+  // Calcul du prix et gestion de l'affichage du bouton
   function calculateOrder() {
     const qtySelects = document.querySelectorAll('.qty-select');
     let totalGrams = 0;
+    let price = 0;
 
+    // Nouveau calcul de prix par gramme
     qtySelects.forEach(select => {
-      totalGrams += parseInt(select.value) || 0;
+      const qty = parseInt(select.value) || 0;
+      const pricePerGram = parseInt(select.getAttribute('data-price')) || 0;
+      totalGrams += qty;
+      price += (qty * pricePerGram);
     });
 
     const commune = document.getElementById('communeSelect').value;
     const communeInfo = communesData[commune] || communesData["Saint-Gilles"];
 
-    // Calcul du Prix
-    let price = 0;
-    if (totalGrams in priceGrid) {
-      price = priceGrid[totalGrams];
-    } else if (totalGrams > 24) {
-      price = priceGrid[24] + Math.ceil((totalGrams - 24) / 2) * 10;
-    }
-
-    // Calcul du Temps (25km/h = 0.416 km/min + 5min de prep)
+    // Calcul du Temps
     let timeText = "--";
     if (commune === "Saint-Gilles") {
       timeText = "2 min - 5 min";
@@ -592,51 +578,49 @@
       timeText = `${travelTimeMin} min - ${travelTimeMin + 5} min`;
     }
 
-    // Mise à jour de l'affichage
+    // Mise à jour interface
     document.getElementById('totalGrams').textContent = `${totalGrams} g`;
     document.getElementById('totalPrice').textContent = `${price} €`;
     document.getElementById('deliveryTime').textContent = timeText;
 
-    // Validation minimum
     const minWarning = document.getElementById('minWarning');
     const whatsappBtn = document.getElementById('whatsappBtn');
 
     if (totalGrams === 0) {
       minWarning.style.display = 'none';
-      whatsappBtn.style.opacity = '0.5';
-      return { price, totalGrams, commune, timeText, isValid: false };
+      whatsappBtn.style.display = 'none';
+      return { isValid: false };
     }
 
+    // Blocage strict si le prix est inférieur au minimum requis
     if (price < communeInfo.min) {
       minWarning.style.display = 'block';
-      minWarning.textContent = `⚠️ Minimum ${communeInfo.min}€ requis pour ${commune}`;
-      whatsappBtn.style.opacity = '0.5';
-      return { price, totalGrams, commune, timeText, isValid: false };
+      minWarning.innerHTML = `⚠️ <b>Minimum de ${communeInfo.min}€ requis</b> pour la commune de ${commune}.<br>Votre panier est actuellement de ${price}€.`;
+      whatsappBtn.style.display = 'none'; // Le bouton disparaît totalement
+      return { isValid: false };
     } else {
       minWarning.style.display = 'none';
-      whatsappBtn.style.opacity = '1';
+      whatsappBtn.style.display = 'flex'; // Le bouton s'affiche si la condition est remplie
       return { price, totalGrams, commune, timeText, isValid: true };
     }
   }
 
-  // Envoi de la commande vers WhatsApp
+  // Envoi WhatsApp
   function sendOrder(event) {
     const order = calculateOrder();
     const address = document.getElementById('addressInput').value.trim();
 
     if (!order.isValid) {
-      alert(`Veuillez respecter le montant minimum de commande pour ${order.commune} (${communesData[order.commune].min}€).`);
       event.preventDefault();
       return false;
     }
 
     if (!address) {
-      alert("Veuillez indiquer votre adresse exacte.");
+      alert("Veuillez indiquer votre adresse exacte avant de valider.");
       event.preventDefault();
       return false;
     }
 
-    // Détail des produits
     let itemsText = "";
     const qtySelects = document.querySelectorAll('.qty-select');
     qtySelects.forEach(select => {
