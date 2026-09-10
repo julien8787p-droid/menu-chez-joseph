@@ -1,575 +1,173 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Dispensaire Interdimensionnel C-137</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bienvenue Chez Joseph :)</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { background: #06070a; background-image: radial-gradient(circle at 50% 15%, rgba(57, 255, 20, 0.12) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(102, 252, 241, 0.08) 0%, transparent 50%); color: #66fcf1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; min-height: 100dvh; padding: 12px; overflow-x: hidden; }
+.view-container { width: 100%; max-width: 380px; display: none; flex-direction: column; align-items: center; }
+.view-container.active { display: flex; }
+.header { text-align: center; margin-top: 5px; margin-bottom: 15px; flex-shrink: 0; }
+.title { font-size: 1.35rem; text-shadow: 0 0 10px #39ff14, 0 0 20px rgba(57, 255, 20, 0.4); color: #39ff14; letter-spacing: 1px; font-weight: 800; }
+.subtitle { color: #c5c6c7; font-size: 0.8rem; margin-top: 4px; opacity: 0.85; }
+.btn-back { background: rgba(69, 162, 158, 0.2); border: 1px solid #45a29e; color: #66fcf1; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; cursor: pointer; margin-bottom: 12px; align-self: flex-start; transition: all 0.2s; }
+.btn-back:hover { background: #39ff14; color: #0b0c10; }
+.main-menu-box { width: 100%; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+.menu-btn { background: rgba(31, 40, 51, 0.9); border: 2px solid #39ff14; color: #fff; padding: 18px 15px; border-radius: 14px; font-size: 1rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 15px rgba(57, 255, 20, 0.15); transition: all 0.25s ease; text-transform: uppercase; letter-spacing: 0.5px; }
+.menu-btn:hover, .menu-btn:active { transform: translateY(-2px); box-shadow: 0 0 20px rgba(57, 255, 20, 0.4); background: rgba(57, 255, 20, 0.15); }
+.menu-btn.white-menu { border-color: #ffffff; box-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
+.menu-btn.white-menu:hover, .menu-btn.white-menu:active { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.15); }
+.menu-btn.game-menu { border-color: #ff9d00; box-shadow: 0 0 15px rgba(255, 157, 0, 0.15); }
+.menu-btn.game-menu:hover, .menu-btn.game-menu:active { box-shadow: 0 0 20px rgba(255, 157, 0, 0.4); background: rgba(255, 157, 0, 0.15); }
+.lang-bar { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; width: 100%; }
+.lang-btn { background: rgba(31, 40, 51, 0.9); border: 1px solid #45a29e; color: #c5c6c7; padding: 6px 10px; border-radius: 12px; font-size: 0.7rem; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+.lang-btn.active { background: #39ff14; color: #0b0c10; border-color: #39ff14; }
+.book-container { width: 100%; max-width: 350px; height: 64vh; max-height: 500px; perspective: 1200px; position: relative; margin: 0 auto; }
+.page { width: 100%; height: 100%; position: absolute; top: 0; left: 0; transform-style: preserve-3d; transform-origin: left center; transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1); border-radius: 14px; }
+.page.flipped { transform: rotateY(-180deg); }
+.face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(69, 162, 158, 0.5); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(57, 255, 20, 0.1); background: rgba(31, 40, 51, 0.95); backdrop-filter: blur(8px); overflow-y: auto; }
+.back { transform: rotateY(180deg); background: #0f141c; border-color: #39ff14; }
+.strain-title { color: #39ff14; font-size: 1.15rem; border-bottom: 2px solid #45a29e; padding-bottom: 4px; margin-bottom: 8px; text-transform: uppercase; font-weight: 700; }
+.thc-badge { background: #45a29e; color: #0b0c10; display: inline-block; padding: 3px 8px; font-weight: bold; border-radius: 6px; margin-bottom: 8px; font-size: 0.75rem; }
+.info { color: #c5c6c7; font-size: 0.82rem; line-height: 1.35; margin-bottom: 8px; }
+.quote { background: rgba(11, 12, 16, 0.85); border-left: 3px solid #39ff14; padding: 8px; font-style: italic; color: #66fcf1; font-size: 0.78rem; border-radius: 0 6px 6px 0; margin-top: 4px; }
+.order-form { display: flex; flex-direction: column; gap: 10px; text-align: left; width: 100%; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group label { font-size: 0.75rem; color: #39ff14; font-weight: bold; text-transform: uppercase; }
+.form-control, select, input { background: #0b0c10; border: 1px solid #45a29e; color: #fff; padding: 8px 10px; border-radius: 8px; font-size: 0.85rem; outline: none; width: 100%; }
+.form-control:focus, select:focus, input:focus { border-color: #39ff14; box-shadow: 0 0 8px rgba(57, 255, 20, 0.4); }
+.strain-qty-row { display: flex; justify-content: space-between; align-items: center; background: rgba(11, 12, 16, 0.6); padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(69, 162, 158, 0.3); }
+.strain-qty-row span { font-size: 0.8rem; color: #fff; }
+.strain-qty-row select { width: 75px; padding: 4px; }
+.order-summary { background: rgba(57, 255, 20, 0.08); border: 1px dashed #39ff14; border-radius: 8px; padding: 8px; margin-top: 4px; }
+.summary-line { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 3px; }
+.summary-line.total { font-weight: bold; color: #39ff14; font-size: 0.95rem; border-top: 1px solid rgba(57, 255, 20, 0.3); padding-top: 4px; margin-top: 4px; }
+.warning-box { background: rgba(255, 68, 68, 0.15); border: 1px solid #ff4444; color: #ff4444; padding: 8px; border-radius: 6px; font-size: 0.75rem; text-align: center; margin-top: 6px; display: none; }
+.btn-whatsapp { background: #25d366; color: #000; border: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 0 12px rgba(37, 211, 102, 0.4); text-decoration: none; width: 100%; margin-top: 4px; }
+.controls-container { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 350px; flex-shrink: 0; margin-top: 8px; }
+.counter { font-size: 0.8rem; color: #45a29e; font-weight: bold; letter-spacing: 1px; }
+.controls { display: flex; gap: 15px; width: 100%; }
+.nav-btn { flex: 1; background: #39ff14; color: #0b0c10; border: none; padding: 10px; font-weight: bold; font-size: 0.85rem; border-radius: 20px; cursor: pointer; box-shadow: 0 0 10px rgba(57, 255, 20, 0.3); transition: all 0.2s; }
+.nav-btn:disabled { opacity: 0.2; box-shadow: none; cursor: not-allowed; }
+.white-card { background: rgba(31, 40, 51, 0.95); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 18px; width: 100%; }
+.white-card .strain-title { color: #ffffff; border-bottom-color: #ffffff; }
+.white-card .form-group label { color: #ffffff; }
+.white-card .order-summary { background: rgba(255, 255, 255, 0.08); border-color: #ffffff; }
+.white-card .summary-line.total { color: #ffffff; border-top-color: rgba(255, 255, 255, 0.3); }
 
-    body {
-      background: #06070a;
-      background-image: 
-        radial-gradient(circle at 50% 15%, rgba(57, 255, 20, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(102, 252, 241, 0.08) 0%, transparent 50%);
-      color: #66fcf1;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding: 12px;
-      overflow-x: hidden;
-    }
-
-    /* VUES */
-    .view-container {
-      width: 100%;
-      max-width: 380px;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .view-container.active {
-      display: flex;
-    }
-
-    /* En-tête */
-    .header {
-      text-align: center;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      flex-shrink: 0;
-    }
-    .title {
-      font-size: 1.35rem;
-      text-shadow: 0 0 10px #39ff14, 0 0 20px rgba(57, 255, 20, 0.4);
-      color: #39ff14;
-      letter-spacing: 1px;
-      font-weight: 800;
-    }
-    .subtitle {
-      color: #c5c6c7;
-      font-size: 0.8rem;
-      margin-top: 4px;
-      opacity: 0.85;
-    }
-
-    /* Bouton Retour */
-    .btn-back {
-      background: rgba(69, 162, 158, 0.2);
-      border: 1px solid #45a29e;
-      color: #66fcf1;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      margin-bottom: 12px;
-      align-self: flex-start;
-      transition: all 0.2s;
-    }
-    .btn-back:hover {
-      background: #39ff14;
-      color: #0b0c10;
-    }
-
-    /* MENU PRINCIPAL */
-    .main-menu-box {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    .menu-btn {
-      background: rgba(31, 40, 51, 0.9);
-      border: 2px solid #39ff14;
-      color: #fff;
-      padding: 18px 15px;
-      border-radius: 14px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.15);
-      transition: all 0.25s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .menu-btn:hover, .menu-btn:active {
-      transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
-      background: rgba(57, 255, 20, 0.15);
-    }
-
-    .menu-btn.white-menu {
-      border-color: #ffffff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
-    }
-    .menu-btn.white-menu:hover, .menu-btn.white-menu:active {
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .menu-btn.game-menu {
-      border-color: #ff9d00;
-      box-shadow: 0 0 15px rgba(255, 157, 0, 0.15);
-    }
-    .menu-btn.game-menu:hover, .menu-btn.game-menu:active {
-      box-shadow: 0 0 20px rgba(255, 157, 0, 0.4);
-      background: rgba(255, 157, 0, 0.15);
-    }
-
-    /* ZONE LIVRE 3D (MENU VERTE) */
-    .book-container {
-      width: 100%;
-      max-width: 350px;
-      height: 64vh;
-      max-height: 500px;
-      perspective: 1200px;
-      position: relative;
-      margin: 0 auto;
-    }
-
-    .page {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-style: preserve-3d;
-      transform-origin: left center;
-      transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-      border-radius: 14px;
-    }
-
-    .page.flipped {
-      transform: rotateY(-180deg);
-    }
-
-    .face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid rgba(69, 162, 158, 0.5);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(57, 255, 20, 0.1);
-      background: rgba(31, 40, 51, 0.95);
-      backdrop-filter: blur(8px);
-      overflow-y: auto;
-    }
-
-    .back {
-      transform: rotateY(180deg);
-      background: #0f141c;
-      border-color: #39ff14;
-    }
-
-    .strain-title {
-      color: #39ff14;
-      font-size: 1.15rem;
-      border-bottom: 2px solid #45a29e;
-      padding-bottom: 4px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    .thc-badge {
-      background: #45a29e;
-      color: #0b0c10;
-      display: inline-block;
-      padding: 3px 8px;
-      font-weight: bold;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      font-size: 0.75rem;
-    }
-    .info {
-      color: #c5c6c7;
-      font-size: 0.82rem;
-      line-height: 1.35;
-      margin-bottom: 8px;
-    }
-    .quote {
-      background: rgba(11, 12, 16, 0.85);
-      border-left: 3px solid #39ff14;
-      padding: 8px;
-      font-style: italic;
-      color: #66fcf1;
-      font-size: 0.78rem;
-      border-radius: 0 6px 6px 0;
-      margin-top: 4px;
-    }
-
-    /* Formulaires */
-    .order-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: left;
-      width: 100%;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .form-group label {
-      font-size: 0.75rem;
-      color: #39ff14;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .form-control, select, input {
-      background: #0b0c10;
-      border: 1px solid #45a29e;
-      color: #fff;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      outline: none;
-      width: 100%;
-    }
-    .form-control:focus, select:focus, input:focus {
-      border-color: #39ff14;
-      box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
-    }
-
-    .strain-qty-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(11, 12, 16, 0.6);
-      padding: 6px 8px;
-      border-radius: 6px;
-      border: 1px solid rgba(69, 162, 158, 0.3);
-    }
-    .strain-qty-row span {
-      font-size: 0.8rem;
-      color: #fff;
-    }
-    .strain-qty-row select {
-      width: 75px;
-      padding: 4px;
-    }
-
-    .order-summary {
-      background: rgba(57, 255, 20, 0.08);
-      border: 1px dashed #39ff14;
-      border-radius: 8px;
-      padding: 8px;
-      margin-top: 4px;
-    }
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      margin-bottom: 3px;
-    }
-    .summary-line.total {
-      font-weight: bold;
-      color: #39ff14;
-      font-size: 0.95rem;
-      border-top: 1px solid rgba(57, 255, 20, 0.3);
-      padding-top: 4px;
-      margin-top: 4px;
-    }
-    .warning-box {
-      background: rgba(255, 68, 68, 0.15);
-      border: 1px solid #ff4444;
-      color: #ff4444;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      text-align: center;
-      margin-top: 6px;
-      display: none;
-    }
-
-    .btn-whatsapp {
-      background: #25d366;
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
-      text-decoration: none;
-      width: 100%;
-      margin-top: 4px;
-    }
-
-    /* Controls Menu Verte */
-    .controls-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      max-width: 350px;
-      flex-shrink: 0;
-      margin-top: 8px;
-    }
-    .counter {
-      font-size: 0.8rem;
-      color: #45a29e;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    .controls {
-      display: flex;
-      gap: 15px;
-      width: 100%;
-    }
-    .nav-btn {
-      flex: 1;
-      background: #39ff14;
-      color: #0b0c10;
-      border: none;
-      padding: 10px;
-      font-weight: bold;
-      font-size: 0.85rem;
-      border-radius: 20px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-      transition: all 0.2s;
-    }
-    .nav-btn:disabled {
-      opacity: 0.2;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
-
-    /* MENU BLANCHE */
-    .white-card {
-      background: rgba(31, 40, 51, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 18px;
-      width: 100%;
-    }
-    .white-card .strain-title {
-      color: #ffffff;
-      border-bottom-color: #ffffff;
-    }
-    .white-card .form-group label {
-      color: #ffffff;
-    }
-    .white-card .order-summary {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: #ffffff;
-    }
-    .white-card .summary-line.total {
-      color: #ffffff;
-      border-top-color: rgba(255, 255, 255, 0.3);
-    }
-
-    /* MINI JEU PIXEL ART */
-    .game-card {
-      background: #0f141c;
-      border: 2px solid #ff9d00;
-      border-radius: 14px;
-      padding: 15px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 157, 0, 0.2);
-    }
-    .game-stage-title {
-      color: #ff9d00;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      font-family: monospace;
-    }
-    .pixel-canvas-container {
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 12px auto;
-      background: #000;
-      border: 4px solid #1f2833;
-      border-radius: 8px;
-      image-rendering: pixelated;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    canvas {
-      image-rendering: pixelated;
-    }
-    .game-btn {
-      background: #ff9d00;
-      color: #000;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 0.9rem;
-      cursor: pointer;
-      width: 100%;
-      box-shadow: 0 0 10px rgba(255, 157, 0, 0.4);
-      font-family: monospace;
-      text-transform: uppercase;
-    }
-    .game-status {
-      font-size: 0.8rem;
-      color: #c5c6c7;
-      margin-top: 8px;
-      min-height: 20px;
-      font-family: monospace;
-    }
-  </style>
+/* JEU LE TROU ROND */
+.game-card { background: #0f141c; border: 2px solid #ff9d00; border-radius: 14px; padding: 16px; width: 100%; text-align: left; box-shadow: 0 0 20px rgba(255, 157, 0, 0.2); }
+.game-card h2 { color: #39ff14; font-size: 1rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; text-shadow: 0 0 8px rgba(57,255,20,0.6); }
+.game-stats { display: flex; justify-content: space-around; background: rgba(11,12,16,0.8); border: 1px solid #45a29e; border-radius: 8px; padding: 6px; margin-bottom: 10px; font-family: monospace; font-size: 0.75rem; }
+.game-stats span { color: #66fcf1; }
+.game-stats b { color: #39ff14; }
+.game-stage-title { color: #ff9d00; font-size: 0.85rem; font-weight: bold; margin-bottom: 6px; text-transform: uppercase; font-family: monospace; letter-spacing: 0.5px; }
+.game-ambient { color: #c5c6c7; font-size: 0.8rem; line-height: 1.4; margin-bottom: 12px; font-style: italic; min-height: 60px; padding: 8px; background: rgba(11,12,16,0.6); border-left: 2px solid #45a29e; border-radius: 4px; }
+.game-choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.game-choice { background: rgba(31,40,51,0.9); border: 1px solid #45a29e; color: #fff; padding: 10px 12px; border-radius: 10px; font-size: 0.82rem; cursor: pointer; text-align: left; transition: all 0.2s; font-family: inherit; line-height: 1.3; }
+.game-choice:hover, .game-choice:active { background: rgba(57,255,20,0.15); border-color: #39ff14; transform: translateX(3px); }
+.game-choice .mark { color: #ff9d00; font-weight: bold; margin-right: 6px; }
+.game-result { color: #66fcf1; font-size: 0.8rem; line-height: 1.4; padding: 8px; background: rgba(11,12,16,0.8); border-radius: 6px; margin-bottom: 10px; min-height: 40px; border-left: 2px solid #ff9d00; }
+.game-btn { background: #ff9d00; color: #000; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; width: 100%; box-shadow: 0 0 10px rgba(255, 157, 0, 0.4); font-family: monospace; text-transform: uppercase; }
+.game-btn:hover { background: #39ff14; }
+.death-flash { animation: flashRed 0.4s ease; }
+@keyframes flashRed { 0%,100%{background:#0f141c;} 50%{background:#3a0000;} }
+</style>
 </head>
 <body>
 
 <!-- ================= MENU PRINCIPAL ================= -->
 <div class="view-container active" id="viewMainMenu">
-  <div class="header">
-    <h1 class="title">🛸 DISPENSAIRE C-137 🌌</h1>
-    <p class="subtitle">Sélectionnez votre protocole d'accès</p>
+  <div class="lang-bar" id="langBar">
+    <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">🇫🇷 FR</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 EN</button>
+    <button class="lang-btn" data-lang="es" onclick="setLang('es')">🇪🇸 ES</button>
+    <button class="lang-btn" data-lang="nl" onclick="setLang('nl')">🇳🇱 NL</button>
+    <button class="lang-btn" data-lang="it" onclick="setLang('it')">🇮🇹 IT</button>
   </div>
-
+  <div class="header">
+    <h1 class="title" id="mainTitle">Bienvenue Chez Joseph :)</h1>
+    <p class="subtitle" id="mainSubtitle">Sélectionnez votre protocole d'accès</p>
+  </div>
   <div class="main-menu-box">
     <button class="menu-btn" onclick="switchView('viewMenuVerte')">
-      <span>🟢 Commander Menu Verte</span>
+      <span id="btnGreen">🟢 Commander Menu Verte</span>
       <span>➔</span>
     </button>
-
     <button class="menu-btn game-menu" onclick="switchView('viewGame')">
-      <span>🕹️ Faire passer le temps</span>
+      <span id="btnGame">🕹️ Le Trou Rond</span>
       <span>➔</span>
     </button>
-
     <button class="menu-btn white-menu" onclick="switchView('viewMenuBlanche')">
-      <span>⚪ Commander Menu Blanche</span>
+      <span id="btnWhite">⚪ Commander Menu Blanche</span>
       <span>➔</span>
     </button>
   </div>
 </div>
 
-
 <!-- ================= MENU VERTE ================= -->
 <div class="view-container" id="viewMenuVerte">
-  <button class="btn-back" onclick="switchView('viewMainMenu')">◀ Menu Principal</button>
-  
+  <button class="btn-back" onclick="switchView('viewMainMenu')" id="btnBackV">◀ Menu Principal</button>
   <div class="header" style="margin-bottom: 5px;">
-    <h1 class="title">🟢 MENU VERTE</h1>
+    <h1 class="title" id="greenTitle">🟢 MENU VERTE</h1>
     <p class="subtitle">Dragon Budz Style</p>
   </div>
-
   <div class="book-container" id="book">
-    <!-- PAGE 1 : WEDDING CAKE -->
     <div class="page" id="page1" style="z-index: 4;">
       <div class="face front">
         <div>
           <h2 class="strain-title">🎂 WEDDING CAKE</h2>
           <div class="thc-badge">THC: 21-22% | Prix: 10€ / 1g</div>
-          <p class="info"><b>👅 Profil :</b> Glaçage vanille, notes terreuses et piquant poivré en finish, loin des profils uniquement sucrés.</p>
-          <p class="info"><b>🌀 Effet & Puissance :</b> Démarrage euphorique et cérébral qui glisse rapidement vers une lourdeur corporelle massive (couch-lock assuré).</p>
+          <p class="info"><b>👅 Profil :</b> Glaçage vanille, notes terreuses et piquant poivré en finish.</p>
+          <p class="info"><b>🌀 Effet :</b> Démarrage euphorique, lourdeur corporelle massive (couch-lock).</p>
         </div>
         <div class="quote"><b>NOTE: 8/10</b> — "La seule du lot capable de surprendre les fumeurs chevronnés."</div>
       </div>
-      <div class="face back">
-        <div style="text-align: center; margin: auto;">
-          <h3 style="color:#39ff14;">🛸 C-137 MENU</h3>
-          <p style="color:#c5c6c7; font-size: 0.8rem; margin-top:5px;">Tournez la page pour la suite</p>
-        </div>
-      </div>
+      <div class="face back"><div style="text-align:center;margin:auto;"><h3 style="color:#39ff14;">🛸 C-137 MENU</h3><p style="color:#c5c6c7;font-size:0.8rem;margin-top:5px;">Tournez la page</p></div></div>
     </div>
-
-    <!-- PAGE 2 : GIRL SCOUT COOKIES -->
     <div class="page" id="page2" style="z-index: 3;">
       <div class="face front">
         <div>
           <h2 class="strain-title">🍪 G. S. COOKIES (GSC)</h2>
           <div class="thc-badge">THC: 18-19% | Prix: 10€ / 1g</div>
-          <p class="info"><b>👅 Profil :</b> Pâte à biscuit, menthe fraîche et notes chocolatées, prolongées par une finale terreuse issue de sa lignée OG.</p>
-          <p class="info"><b>🌀 Effet & Puissance :</b> High propre, joyeux et créatif, sans anxiété. Peut sembler moyen pour les gros consommateurs.</p>
+          <p class="info"><b>👅 Profil :</b> Pâte à biscuit, menthe fraîche et notes chocolatées.</p>
+          <p class="info"><b>🌀 Effet :</b> High propre, joyeux et créatif, sans anxiété.</p>
         </div>
         <div class="quote"><b>NOTE: 6/10</b> — "Idéale pour socialiser et créer sans s'éteindre."</div>
       </div>
-      <div class="face back">
-        <div style="text-align: center; margin: auto;">
-          <h3 style="color:#39ff14;">🧪 QUALITÉ C-137</h3>
-          <p style="color:#c5c6c7; font-size: 0.8rem; margin-top:5px;">Infiltration discrète garantie</p>
-        </div>
-      </div>
+      <div class="face back"><div style="text-align:center;margin:auto;"><h3 style="color:#39ff14;">🧪 QUALITÉ C-137</h3><p style="color:#c5c6c7;font-size:0.8rem;margin-top:5px;">Infiltration garantie</p></div></div>
     </div>
-
-    <!-- PAGE 3 : ICE CREAM CAKE -->
     <div class="page" id="page3" style="z-index: 2;">
       <div class="face front">
         <div>
           <h2 class="strain-title">🍦 ICE CREAM CAKE</h2>
           <div class="thc-badge">THC: 16-17% | Prix: 5€ / 1g</div>
           <p class="info"><b>👅 Profil :</b> Crème vanillée, pâte sucrée, noisette et pointe de pin frais.</p>
-          <p class="info"><b>🌀 Effet & Puissance :</b> Sédation douce qui met le cerveau sur pause et détend les muscles. Peu d'effet pour les amateurs de puissance brute.</p>
+          <p class="info"><b>🌀 Effet :</b> Sédation douce, détente musculaire, aide au sommeil.</p>
         </div>
         <div class="quote"><b>NOTE: 4/10</b> — "Parfaite pour les petits budgets ou l'aide au sommeil léger."</div>
       </div>
-      <div class="face back">
-        <div style="text-align: center; margin: auto;">
-          <h3 style="color:#39ff14;">⚡ LIVRAISON RAPIDE</h3>
-          <p style="color:#c5c6c7; font-size: 0.8rem; margin-top:5px;">Passez commande à la page suivante</p>
-        </div>
-      </div>
+      <div class="face back"><div style="text-align:center;margin:auto;"><h3 style="color:#39ff14;">⚡ LIVRAISON RAPIDE</h3></div></div>
     </div>
-
-    <!-- PAGE 4 : Formulaire -->
     <div class="page" id="page4" style="z-index: 1;">
       <div class="face front">
         <h2 class="strain-title" style="margin-bottom:8px; font-size:1.1rem;">🛒 COMMANDE EXPRESS</h2>
-        
         <div class="order-form">
           <div class="form-group">
             <label>1. Variétés & Quantités</label>
-            <div class="strain-qty-row">
-              <span>Wedding Cake (10€/g)</span>
-              <select class="qty-select-green" data-strain="Wedding Cake" data-price="10" onchange="calculateOrderGreen()">
-                <option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option>
-              </select>
+            <div class="strain-qty-row"><span>Wedding Cake (10€/g)</span>
+              <select class="qty-select-green" data-strain="Wedding Cake" data-price="10" onchange="calculateOrderGreen()"><option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option></select>
             </div>
-            <div class="strain-qty-row">
-              <span>G.S. Cookies (10€/g)</span>
-              <select class="qty-select-green" data-strain="Girl Scout Cookies" data-price="10" onchange="calculateOrderGreen()">
-                <option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option>
-              </select>
+            <div class="strain-qty-row"><span>G.S. Cookies (10€/g)</span>
+              <select class="qty-select-green" data-strain="Girl Scout Cookies" data-price="10" onchange="calculateOrderGreen()"><option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option></select>
             </div>
-            <div class="strain-qty-row">
-              <span>Ice Cream Cake (5€/g)</span>
-              <select class="qty-select-green" data-strain="Ice Cream Cake" data-price="5" onchange="calculateOrderGreen()">
-                <option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option>
-              </select>
+            <div class="strain-qty-row"><span>Ice Cream Cake (5€/g)</span>
+              <select class="qty-select-green" data-strain="Ice Cream Cake" data-price="5" onchange="calculateOrderGreen()"><option value="0">0g</option><option value="2">2g</option><option value="4">4g</option><option value="6">6g</option><option value="8">8g</option><option value="10">10g</option><option value="12">12g</option><option value="14">14g</option><option value="16">16g</option><option value="18">18g</option><option value="20">20g</option><option value="22">22g</option><option value="24">24g</option></select>
             </div>
           </div>
-
-          <div class="form-group">
-            <label>2. Commune de Bruxelles</label>
+          <div class="form-group"><label>2. Commune de Bruxelles</label>
             <select id="communeSelectGreen" onchange="calculateOrderGreen()">
               <option value="Saint-Gilles">Saint-Gilles (Min. 20€)</option>
               <option value="Anderlecht">Anderlecht (Min. 40€)</option>
@@ -591,34 +189,19 @@
               <option value="Woluwe-Saint-Pierre">Woluwe-Saint-Pierre (Min. 40€)</option>
             </select>
           </div>
-
-          <div class="form-group">
-            <label>3. Adresse exacte</label>
-            <input type="text" id="addressInputGreen" placeholder="Rue et numéro..." oninput="calculateOrderGreen()">
-          </div>
-
+          <div class="form-group"><label>3. Adresse exacte</label><input type="text" id="addressInputGreen" placeholder="Rue et numéro..." oninput="calculateOrderGreen()"></div>
           <div class="order-summary">
             <div class="summary-line"><span>Quantité totale :</span><span id="totalGramsGreen">0 g</span></div>
             <div class="summary-line"><span>Temps estimé :</span><span id="deliveryTimeGreen" style="color:#66fcf1;">--</span></div>
             <div class="summary-line total"><span>Prix Total :</span><span id="totalPriceGreen">0 €</span></div>
           </div>
-
           <div id="minWarningGreen" class="warning-box"></div>
-
-          <a id="whatsappBtnGreen" class="btn-whatsapp" href="#" target="_blank" onclick="return sendOrderGreen(event)" style="display:none;">
-            📲 COMMANDER VIA WHATSAPP
-          </a>
+          <a id="whatsappBtnGreen" class="btn-whatsapp" href="#" target="_blank" onclick="return sendOrderGreen(event)" style="display:none;">📲 COMMANDER VIA WHATSAPP</a>
         </div>
       </div>
-      <div class="face back">
-        <div style="text-align: center; margin: auto;">
-          <h3 style="color:#39ff14;">🛸 FIN DU MENU</h3>
-          <p style="color:#c5c6c7; font-size: 0.8rem; margin-top:5px;">Utilisez le bouton Précédent</p>
-        </div>
-      </div>
+      <div class="face back"><div style="text-align:center;margin:auto;"><h3 style="color:#39ff14;">🛸 FIN</h3></div></div>
     </div>
   </div>
-
   <div class="controls-container">
     <div class="counter" id="pageCounter">Page 1 / 4</div>
     <div class="controls">
@@ -628,32 +211,31 @@
   </div>
 </div>
 
-
-<!-- ================= MINI JEU ================= -->
+<!-- ================= JEU — LE TROU ROND ================= -->
 <div class="view-container" id="viewGame">
-  <button class="btn-back" onclick="switchView('viewMainMenu')">◀ Menu Principal</button>
-  
-  <div class="game-card">
-    <div class="game-stage-title" id="gameStageTitle">Étape 1 : Planter</div>
-    <div class="pixel-canvas-container">
-      <canvas id="gameCanvas" width="32" height="32" style="width: 192px; height: 192px;"></canvas>
+  <button class="btn-back" onclick="switchView('viewMainMenu')" id="btnBackG">◀ Menu Principal</button>
+  <div class="game-card" id="gameCard">
+    <h2 id="gameTitle">🌿 LE TROU ROND</h2>
+    <div class="game-stats">
+      <span>🔴 <b id="statP">0</b> <span id="lblP">PUISSANCE</span></span>
+      <span>🔵 <b id="statL">0</b> <span id="lblL">LUCIDITÉ</span></span>
+      <span>♻️ <b id="statR">0</b> <span id="lblR">RESETS</span></span>
     </div>
-    <button class="game-btn" id="gameActionBtn" onclick="advanceGame()">🌱 Planter la graine</button>
-    <div class="game-status" id="gameStatus">Cliquez pour planter la graine !</div>
+    <div class="game-stage-title" id="stageTitle">— PROLOGUE —</div>
+    <div class="game-ambient" id="ambient">Un salon moderne. Béton ciré. Néons froids. Un personnage assis sur un canapé. Sa bouche est entrouverte. Un curseur flotte devant.</div>
+    <div class="game-choices" id="choices"></div>
+    <div class="game-result" id="result">Cliquez sur la bouche du personnage pour commencer...</div>
+    <button class="game-btn" id="mainActionBtn" onclick="gameAction()">👁️ CLIQUER</button>
   </div>
 </div>
 
-
 <!-- ================= MENU BLANCHE ================= -->
 <div class="view-container" id="viewMenuBlanche">
-  <button class="btn-back" onclick="switchView('viewMainMenu')">◀ Menu Principal</button>
-
+  <button class="btn-back" onclick="switchView('viewMainMenu')" id="btnBackW">◀ Menu Principal</button>
   <div class="white-card">
-    <h2 class="strain-title">⚪ MENU BLANCHE</h2>
-    
+    <h2 class="strain-title" id="whiteTitle">⚪ MENU BLANCHE</h2>
     <div class="order-form">
-      <div class="form-group">
-        <label>1. Quantité</label>
+      <div class="form-group"><label>1. Quantité</label>
         <select id="qtySelectWhite" onchange="calculateOrderWhite()">
           <option value="0">Choisir une quantité...</option>
           <option value="1">1 (50 €)</option>
@@ -662,9 +244,7 @@
           <option value="4">4 (150 €)</option>
         </select>
       </div>
-
-      <div class="form-group">
-        <label>2. Commune de Bruxelles</label>
+      <div class="form-group"><label>2. Commune de Bruxelles</label>
         <select id="communeSelectWhite" onchange="calculateOrderWhite()">
           <option value="Saint-Gilles">Saint-Gilles</option>
           <option value="Anderlecht">Anderlecht</option>
@@ -686,316 +266,807 @@
           <option value="Woluwe-Saint-Pierre">Woluwe-Saint-Pierre</option>
         </select>
       </div>
-
-      <div class="form-group">
-        <label>3. Adresse exacte</label>
-        <input type="text" id="addressInputWhite" placeholder="Rue et numéro..." oninput="calculateOrderWhite()">
-      </div>
-
+      <div class="form-group"><label>3. Adresse exacte</label><input type="text" id="addressInputWhite" placeholder="Rue et numéro..." oninput="calculateOrderWhite()"></div>
       <div class="order-summary">
         <div class="summary-line"><span>Temps estimé :</span><span id="deliveryTimeWhite" style="color:#ffffff;">--</span></div>
         <div class="summary-line total"><span>Prix Total :</span><span id="totalPriceWhite">0 €</span></div>
       </div>
-
-      <a id="whatsappBtnWhite" class="btn-whatsapp" href="#" target="_blank" onclick="return sendOrderWhite(event)" style="display:none; background:#ffffff; color:#000;">
-        📲 COMMANDER VIA WHATSAPP
-      </a>
+      <a id="whatsappBtnWhite" class="btn-whatsapp" href="#" target="_blank" onclick="return sendOrderWhite(event)" style="display:none; background:#ffffff; color:#000;">📲 COMMANDER VIA WHATSAPP</a>
     </div>
   </div>
 </div>
 
 <script>
-  function switchView(viewId) {
-    document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
-    document.getElementById(viewId).classList.add('active');
-    if(viewId === 'viewGame') initGame();
+/* ============================================================
+   TRADUCTIONS — FR / EN / ES / NL / IT
+   ============================================================ */
+const I18N = {
+  fr: {
+    title: "Bienvenue Chez Joseph :)",
+    subtitle: "Sélectionnez votre protocole d'accès",
+    btnGreen: "🟢 Commander Menu Verte",
+    btnGame: "🕹️ Le Trou Rond",
+    btnWhite: "⚪ Commander Menu Blanche",
+    back: "◀ Menu Principal",
+    greenTitle: "🟢 MENU VERTE",
+    whiteTitle: "⚪ MENU BLANCHE",
+    page: "Page",
+    next: "Suivant ▶",
+    prev: "◀ Précédent",
+    /* GAME */
+    gTitle: "🌿 LE TROU ROND",
+    lblP: "PUISSANCE", lblL: "LUCIDITÉ", lblR: "RESETS",
+    prologueTitle: "— PROLOGUE —",
+    prologueAmbient: "Un salon moderne. Béton ciré. Néons froids. Un personnage assis sur un canapé. Sa bouche est entrouverte. Un curseur flotte devant.",
+    clickToStart: "Cliquez sur la bouche du personnage pour commencer...",
+    clickBtn: "👁️ CLIQUER",
+    advanceBtn: "➡️ CONTINUER",
+    restartBtn: "🔄 RECOMMENCER",
+    deathBtn: "💀 RESET",
+    chooseTitle: "— CHOIX —",
+    dieMsg: "☠️ Tu es mort. RESET...",
+    endMsg: "🏁 FIN",
+    /* Deaths & endings short */
+    endPantin: "🟢 FIN 1 — LE PANTIN : Tu deviens le décor. Le jeu continue sans toi.",
+    endInspecteur: "🔴 FIN 2 — LE NOUVEL INSPECTEUR : Tu prends le badge. Tu attends le prochain.",
+    endReveil: "⚪ FIN 3 — LE RÉVEIL : Tu ne cliques pas. Tu te lèves. Tu sors.",
+    endTrou: "🟣 FIN 4 — LE TROU : Tu deviens le trou. Quelqu'un clique. C'est toi. Encore."
+  },
+  en: {
+    title: "Welcome to Joseph's :)",
+    subtitle: "Select your access protocol",
+    btnGreen: "🟢 Order Green Menu",
+    btnGame: "🕹️ The Round Hole",
+    btnWhite: "⚪ Order White Menu",
+    back: "◀ Main Menu",
+    greenTitle: "🟢 GREEN MENU",
+    whiteTitle: "⚪ WHITE MENU",
+    page: "Page",
+    next: "Next ▶",
+    prev: "◀ Previous",
+    gTitle: "🌿 THE ROUND HOLE",
+    lblP: "POWER", lblL: "LUCIDITY", lblR: "RESETS",
+    prologueTitle: "— PROLOGUE —",
+    prologueAmbient: "A modern living room. Polished concrete. Cold neon. A figure sits on a couch. His mouth is slightly open. A cursor hovers in front of him.",
+    clickToStart: "Click on the character's mouth to begin...",
+    clickBtn: "👁️ CLICK",
+    advanceBtn: "➡️ CONTINUE",
+    restartBtn: "🔄 RESTART",
+    deathBtn: "💀 RESET",
+    chooseTitle: "— CHOICE —",
+    dieMsg: "☠️ You died. RESET...",
+    endMsg: "🏁 END",
+    endPantin: "🟢 END 1 — THE PUPPET: You become the scenery. The game goes on without you.",
+    endInspecteur: "🔴 END 2 — THE NEW INSPECTOR: You take the badge. You wait for the next one.",
+    endReveil: "⚪ END 3 — THE AWAKENING: You don't click. You stand up. You leave.",
+    endTrou: "🟣 END 4 — THE HOLE: You become the hole. Someone clicks. It's you. Again."
+  },
+  es: {
+    title: "Bienvenido a Casa de Joseph :)",
+    subtitle: "Selecciona tu protocolo de acceso",
+    btnGreen: "🟢 Pedir Menú Verde",
+    btnGame: "🕹️ El Agujero Redondo",
+    btnWhite: "⚪ Pedir Menú Blanco",
+    back: "◀ Menú Principal",
+    greenTitle: "🟢 MENÚ VERDE",
+    whiteTitle: "⚪ MENÚ BLANCO",
+    page: "Página",
+    next: "Siguiente ▶",
+    prev: "◀ Anterior",
+    gTitle: "🌿 EL AGUJERO REDONDO",
+    lblP: "PODER", lblL: "LUCIDEZ", lblR: "REINICIOS",
+    prologueTitle: "— PRÓLOGO —",
+    prologueAmbient: "Un salón moderno. Hormigón pulido. Neones fríos. Una figura sentada en un sofá. Su boca está entreabierta. Un cursor flota delante.",
+    clickToStart: "Haz clic en la boca del personaje para empezar...",
+    clickBtn: "👁️ CLIC",
+    advanceBtn: "➡️ CONTINUAR",
+    restartBtn: "🔄 REINICIAR",
+    deathBtn: "💀 RESET",
+    chooseTitle: "— ELECCIÓN —",
+    dieMsg: "☠️ Has muerto. RESET...",
+    endMsg: "🏁 FIN",
+    endPantin: "🟢 FIN 1 — LA MARIONETA: Te vuelves el decorado. El juego sigue sin ti.",
+    endInspecteur: "🔴 FIN 2 — EL NUEVO INSPECTOR: Tomas la placa. Esperas al siguiente.",
+    endReveil: "⚪ FIN 3 — EL DESPERTAR: No haces clic. Te levantas. Sales.",
+    endTrou: "🟣 FIN 4 — EL AGUJERO: Te vuelves el agujero. Alguien hace clic. Eres tú. Otra vez."
+  },
+  nl: {
+    title: "Welkom bij Joseph :)",
+    subtitle: "Selecteer je toegangsprotocol",
+    btnGreen: "🟢 Groen Menu Bestellen",
+    btnGame: "🕹️ Het Ronde Gat",
+    btnWhite: "⚪ Wit Menu Bestellen",
+    back: "◀ Hoofdmenu",
+    greenTitle: "🟢 GROEN MENU",
+    whiteTitle: "⚪ WIT MENU",
+    page: "Pagina",
+    next: "Volgende ▶",
+    prev: "◀ Vorige",
+    gTitle: "🌿 HET RONDE GAT",
+    lblP: "KRACHT", lblL: "HELDERHEID", lblR: "RESETS",
+    prologueTitle: "— PROLOOG —",
+    prologueAmbient: "Een moderne woonkamer. Gepolijst beton. Koude neon. Een figuur zit op een bank. Zijn mond staat een beetje open. Een cursor zweeft ervoor.",
+    clickToStart: "Klik op de mond van het personage om te beginnen...",
+    clickBtn: "👁️ KLIK",
+    advanceBtn: "➡️ DOORGAAN",
+    restartBtn: "🔄 OPNIEUW",
+    deathBtn: "💀 RESET",
+    chooseTitle: "— KEUZE —",
+    dieMsg: "☠️ Je bent dood. RESET...",
+    endMsg: "🏁 EINDE",
+    endPantin: "🟢 EINDE 1 — DE POP: Je wordt het decor. Het spel gaat verder zonder jou.",
+    endInspecteur: "🔴 EINDE 2 — DE NIEUWE INSPECTEUR: Je neemt de badge. Je wacht op de volgende.",
+    endReveil: "⚪ EINDE 3 — HET ONTWAKEN: Je klikt niet. Je staat op. Je vertrekt.",
+    endTrou: "🟣 EINDE 4 — HET GAT: Je wordt het gat. Iemand klikt. Jij bent het. Weer."
+  },
+  it: {
+    title: "Benvenuto da Joseph :)",
+    subtitle: "Seleziona il tuo protocollo di accesso",
+    btnGreen: "🟢 Ordinare Menù Verde",
+    btnGame: "🕹️ Il Buco Rotondo",
+    btnWhite: "⚪ Ordinare Menù Bianco",
+    back: "◀ Menù Principale",
+    greenTitle: "🟢 MENÙ VERDE",
+    whiteTitle: "⚪ MENÙ BIANCO",
+    page: "Pagina",
+    next: "Avanti ▶",
+    prev: "◀ Indietro",
+    gTitle: "🌿 IL BUCO ROTONDO",
+    lblP: "POTERE", lblL: "LUCIDITÀ", lblR: "RESET",
+    prologueTitle: "— PROLOGO —",
+    prologueAmbient: "Un salotto moderno. Cemento lucido. Neon freddi. Una figura seduta su un divano. La sua bocca è socchiusa. Un cursore fluttua davanti.",
+    clickToStart: "Clicca sulla bocca del personaggio per iniziare...",
+    clickBtn: "👁️ CLICCA",
+    advanceBtn: "➡️ CONTINUA",
+    restartBtn: "🔄 RICOMINCIA",
+    deathBtn: "💀 RESET",
+    chooseTitle: "— SCELTA —",
+    dieMsg: "☠️ Sei morto. RESET...",
+    endMsg: "🏁 FINE",
+    endPantin: "🟢 FINE 1 — IL BURATTINO: Diventi lo scenario. Il gioco continua senza di te.",
+    endInspecteur: "🔴 FINE 2 — IL NUOVO ISPETTORE: Prendi il distintivo. Aspetti il prossimo.",
+    endReveil: "⚪ FINE 3 — IL RISVEGLIO: Non clicchi. Ti alzi. Esci.",
+    endTrou: "🟣 FINE 4 — IL BUCO: Diventi il buco. Qualcuno clicca. Sei tu. Ancora."
+  }
+};
+
+/* ============================================================
+   JEU — LE TROU ROND (données compactes multilingues)
+   Structure: chaque niveau a 4 choix.
+   Effets: 'p' = +puissance, 'l' = +lucidite, 'pl' = +1/+1, 'die' = mort, 'end' = déclenche fin selon jauges
+   ============================================================ */
+const GAME = {
+  fr: [
+    {ch:"Chapitre 1 — La Chute", lv:[
+      {t:"L'Atterrissage", a:"Le parquet grince. Quatre portes. Exactement quatre.", c:[
+        {x:"Ouvrir la porte lumineuse", e:"l"},
+        {x:"Ouvrir la porte sucrée", e:"p"},
+        {x:"Frapper à la porte du fond", e:"die"},
+        {x:"Rester immobile et écouter", e:"l"}]},
+      {t:"La Cuisine", a:"Un frigo vide. Sur le plan de travail : un sachet qui pulse.", c:[
+        {x:"Le prendre", e:"p"},
+        {x:"Le laisser et fouiller", e:"l"},
+        {x:"Le brûler", e:"die"},
+        {x:"Le renifler sans le prendre", e:"pl"}]},
+      {t:"Le Couloir", a:"Le couloir est plus long que l'appartement.", c:[
+        {x:"Avancer sans compter", e:"p"},
+        {x:"Compter les portes", e:"l"},
+        {x:"Reculer vers la cuisine", e:"die"},
+        {x:"Crier « c'est un jeu »", e:"l"}]},
+      {t:"La Chambre", a:"Un badge sous l'oreiller. Le nom est le tien.", c:[
+        {x:"Le mettre", e:"p"},
+        {x:"Le reposer", e:"l"},
+        {x:"Le mordre", e:"die"},
+        {x:"Le retourner", e:"l"}]}
+    ]},
+    {ch:"Chapitre 2 — Les Pièces", lv:[
+      {t:"Le Salon (le vrai)", a:"Un personnage assis. Il a ta bouche. Il respire.", c:[
+        {x:"Lui parler", e:"l"},
+        {x:"Lui fermer la bouche", e:"die"},
+        {x:"T'asseoir à côté", e:"pl"},
+        {x:"Le regarder fixement", e:"l"}]},
+      {t:"La Salle de Bain", a:"Le miroir reflète le salon du prologue.", c:[
+        {x:"Casser le miroir", e:"p"},
+        {x:"Traverser le miroir", e:"die"},
+        {x:"Écrire dessus", e:"l"},
+        {x:"Détourner le regard", e:"p"}]},
+      {t:"Le Placard", a:"Des dizaines de sachets. Un seul est vert.", c:[
+        {x:"Prendre le différent", e:"l"},
+        {x:"Tout prendre", e:"p"},
+        {x:"Tout laisser", e:"l"},
+        {x:"Manger sur place", e:"die"}]},
+      {t:"La Porte Verrouillée", a:"Derrière : une radio de police qui grésille.", c:[
+        {x:"Écouter à la porte", e:"l"},
+        {x:"Enfoncer la porte", e:"p"},
+        {x:"Frapper", e:"die"},
+        {x:"Partir sans bruit", e:"l"}]}
+    ]},
+    {ch:"Chapitre 3 — La Récolte", lv:[
+      {t:"La Pousse", a:"Une pousse verte entre deux lattes du parquet.", c:[
+        {x:"Récolter à la main", e:"p"},
+        {x:"Arracher tout d'un coup", e:"die"},
+        {x:"La laisser pousser", e:"l"},
+        {x:"L'arroser avec le vide", e:"p"}]},
+      {t:"Le Jardin Intérieur", a:"Une pièce devenue jungle. Ça respire.", c:[
+        {x:"Entrer", e:"p"},
+        {x:"Attendre que ça sorte", e:"l"},
+        {x:"Mettre le feu", e:"die"},
+        {x:"Chanter", e:"l"}]},
+      {t:"La Transformation", a:"Les murs sont des lignes de code vert.", c:[
+        {x:"Accepter", e:"p"},
+        {x:"Résister", e:"l"},
+        {x:"Nier", e:"die"},
+        {x:"Écrire dans le vide", e:"l"}]},
+      {t:"Le Premier Monstre", a:"Petit. Tremblant. Il a tes yeux.", c:[
+        {x:"Le tuer", e:"p"},
+        {x:"Lui parler", e:"l"},
+        {x:"Le laisser partir", e:"l"},
+        {x:"Le manger", e:"die"}]}
+    ]},
+    {ch:"Chapitre 4 — La Meute", lv:[
+      {t:"La Meute", a:"Des dizaines de petits monstres. Tous toi.", c:[
+        {x:"Foncer", e:"p"},
+        {x:"Négocier", e:"l"},
+        {x:"Fuir", e:"die"},
+        {x:"Se rendre", e:"l"}]},
+      {t:"Le Nid", a:"Un trône de sachets. Une place vide t'attend.", c:[
+        {x:"Prendre le trône", e:"p"},
+        {x:"Détruire le trône", e:"die"},
+        {x:"T'asseoir dedans", e:"p"},
+        {x:"Leur apprendre à le détruire", e:"pl"}]},
+      {t:"Le Blessé", a:"Un monstre agonisant te tend un sachet vide.", c:[
+        {x:"Prendre le sachet", e:"p"},
+        {x:"Le soigner", e:"l"},
+        {x:"L'achever", e:"p"},
+        {x:"L'ignorer", e:"die"}]},
+      {t:"La Frontière", a:"Une ligne jaune. Au-delà : un uniforme qui brille.", c:[
+        {x:"Franchir la ligne", e:"p"},
+        {x:"Reculer", e:"die"},
+        {x:"S'asseoir sur la ligne", e:"l"},
+        {x:"Effacer la ligne", e:"pl"}]}
+    ]},
+    {ch:"Chapitre 5 — L'Inspecteur", lv:[
+      {t:"L'Interrogatoire", a:"Il a tes mains. Tes cicatrices. Ta voix en plus vieux.", c:[
+        {x:"Nier", e:"die"},
+        {x:"Avouer", e:"l"},
+        {x:"L'interroger à ton tour", e:"l"},
+        {x:"Renverser la table", e:"p"}]},
+      {t:"Le Dossier", a:"96 pages. Ton vrai nom sur la couverture.", c:[
+        {x:"Le lire", e:"l"},
+        {x:"Le déchirer", e:"die"},
+        {x:"Le signer", e:"p"},
+        {x:"Demander qui l'a écrit", e:"l"}]},
+      {t:"Le Combat", a:"Un revolver. 47 encoches sur la crosse.", c:[
+        {x:"Attaquer de front", e:"p"},
+        {x:"Attaquer avec compréhension", e:"l"},
+        {x:"Fuir", e:"die"},
+        {x:"Parler du canapé", e:"l"}]},
+      {t:"L'Inspecteur Tombé", a:"Il respire. Il attend ton choix.", c:[
+        {x:"L'achever", e:"p"},
+        {x:"Le laisser vivre", e:"l"},
+        {x:"Prendre son badge", e:"p"},
+        {x:"Demander comment sortir", e:"l"}]}
+    ]},
+    {ch:"Chapitre 6 — Le Trou Rond", lv:[
+      {t:"Le Curseur", a:"Tu es derrière le personnage. Tu es le curseur.", c:[
+        {x:"Suivre le curseur", e:"l"},
+        {x:"L'ignorer", e:"p"},
+        {x:"Cliquer sur ta bouche", e:"die"},
+        {x:"Cliquer sur le mur", e:"l"}]},
+      {t:"Le Portail", a:"Vert. Face à toi. Deux flèches.", c:[
+        {x:"Reculer", e:"die"},
+        {x:"Avancer", e:"p"},
+        {x:"Ne pas bouger", e:"l"},
+        {x:"Regarder derrière", e:"l"}]},
+      {t:"Le Choix", a:"Le jeu te parle directement. « Que veux-tu être ? »", c:[
+        {x:"Devenir le nouveau monstre", e:"p"},
+        {x:"Te réveiller", e:"l"},
+        {x:"Fusionner avec le trou", e:"pl"},
+        {x:"Restart volontaire", e:"l"}]},
+      {t:"La Dernière Bouche", a:"Tout est comme au début. Tu sais tout.", c:[
+        {x:"Cliquer", e:"end"},
+        {x:"Ne pas cliquer", e:"end"},
+        {x:"Éteindre le jeu", e:"end"},
+        {x:"Attendre", e:"end"}]}
+    ]}
+  ],
+  en: [
+    {ch:"Chapter 1 — The Fall", lv:[
+      {t:"The Landing", a:"The floor creaks. Four doors. Exactly four.", c:[
+        {x:"Open the luminous door", e:"l"},{x:"Open the sweet-smelling door", e:"p"},{x:"Knock on the back door", e:"die"},{x:"Stay still and listen", e:"l"}]},
+      {t:"The Kitchen", a:"An empty fridge. On the counter: a pulsing bag.", c:[
+        {x:"Take it", e:"p"},{x:"Leave it and search", e:"l"},{x:"Burn it", e:"die"},{x:"Smell it without taking", e:"pl"}]},
+      {t:"The Corridor", a:"The corridor is longer than the apartment.", c:[
+        {x:"Walk without counting", e:"p"},{x:"Count the doors out loud", e:"l"},{x:"Go back to the kitchen", e:"die"},{x:"Shout 'it's a game'", e:"l"}]},
+      {t:"The Bedroom", a:"A badge under the pillow. The name is yours.", c:[
+        {x:"Put it on", e:"p"},{x:"Put it back", e:"l"},{x:"Bite it", e:"die"},{x:"Turn it over", e:"l"}]}
+    ]},
+    {ch:"Chapter 2 — The Rooms", lv:[
+      {t:"The Living Room (real)", a:"A figure sits. He has your mouth. He breathes.", c:[
+        {x:"Talk to him", e:"l"},{x:"Close his mouth", e:"die"},{x:"Sit beside him", e:"pl"},{x:"Stare at him", e:"l"}]},
+      {t:"The Bathroom", a:"The mirror reflects the prologue's living room.", c:[
+        {x:"Break the mirror", e:"p"},{x:"Go through the mirror", e:"die"},{x:"Write on it", e:"l"},{x:"Look away", e:"p"}]},
+      {t:"The Closet", a:"Dozens of bags. Only one is green.", c:[
+        {x:"Take the different one", e:"l"},{x:"Take everything", e:"p"},{x:"Take nothing", e:"l"},{x:"Eat on the spot", e:"die"}]},
+      {t:"The Locked Door", a:"Behind it: a police radio crackling.", c:[
+        {x:"Listen at the door", e:"l"},{x:"Break the door", e:"p"},{x:"Knock", e:"die"},{x:"Leave without a sound", e:"l"}]}
+    ]},
+    {ch:"Chapter 3 — The Harvest", lv:[
+      {t:"The Sprout", a:"A green sprout between two floorboards.", c:[
+        {x:"Harvest by hand", e:"p"},{x:"Pull it all at once", e:"die"},{x:"Let it grow and watch", e:"l"},{x:"Water it with the void", e:"p"}]},
+      {t:"The Indoor Garden", a:"A room turned jungle. Something breathes.", c:[
+        {x:"Enter", e:"p"},{x:"Wait for it to come out", e:"l"},{x:"Set it on fire", e:"die"},{x:"Sing", e:"l"}]},
+      {t:"The Transformation", a:"The walls are green lines of code.", c:[
+        {x:"Accept", e:"p"},{x:"Resist", e:"l"},{x:"Deny", e:"die"},{x:"Write in the void", e:"l"}]},
+      {t:"The First Monster", a:"Small. Trembling. He has your eyes.", c:[
+        {x:"Kill him", e:"p"},{x:"Talk to him", e:"l"},{x:"Let him go", e:"l"},{x:"Eat him", e:"die"}]}
+    ]},
+    {ch:"Chapter 4 — The Pack", lv:[
+      {t:"The Pack", a:"Dozens of small monsters. All of them are you.", c:[
+        {x:"Charge", e:"p"},{x:"Negotiate", e:"l"},{x:"Flee", e:"die"},{x:"Surrender", e:"l"}]},
+      {t:"The Nest", a:"A throne of bags. An empty seat waits for you.", c:[
+        {x:"Take the throne", e:"p"},{x:"Destroy the throne", e:"die"},{x:"Sit inside it", e:"p"},{x:"Teach them to destroy it", e:"pl"}]},
+      {t:"The Wounded", a:"A dying monster hands you an empty bag.", c:[
+        {x:"Take the bag", e:"p"},{x:"Heal him", e:"l"},{x:"Finish him", e:"p"},{x:"Ignore him", e:"die"}]},
+      {t:"The Border", a:"A yellow line. Beyond it: a uniform shining in the dark.", c:[
+        {x:"Cross the line", e:"p"},{x:"Step back", e:"die"},{x:"Sit on the line", e:"l"},{x:"Erase the line", e:"pl"}]}
+    ]},
+    {ch:"Chapter 5 — The Inspector", lv:[
+      {t:"The Interrogation", a:"He has your hands. Your scars. Your voice, older.", c:[
+        {x:"Deny", e:"die"},{x:"Confess", e:"l"},{x:"Question him back", e:"l"},{x:"Flip the table", e:"p"}]},
+      {t:"The File", a:"96 pages. Your real name on the cover.", c:[
+        {x:"Read it", e:"l"},{x:"Tear it up", e:"die"},{x:"Sign it", e:"p"},{x:"Ask who wrote it", e:"l"}]},
+      {t:"The Fight", a:"A revolver. 47 notches on the grip.", c:[
+        {x:"Attack head-on", e:"p"},{x:"Attack with understanding", e:"l"},{x:"Flee", e:"die"},{x:"Talk about the couch", e:"l"}]},
+      {t:"The Fallen Inspector", a:"He breathes. He waits for your choice.", c:[
+        {x:"Finish him", e:"p"},{x:"Let him live", e:"l"},{x:"Take his badge", e:"p"},{x:"Ask how to leave", e:"l"}]}
+    ]},
+    {ch:"Chapter 6 — The Round Hole", lv:[
+      {t:"The Cursor", a:"You are behind the figure. You are the cursor.", c:[
+        {x:"Follow the cursor", e:"l"},{x:"Ignore it", e:"p"},{x:"Click your own mouth", e:"die"},{x:"Click the wall", e:"l"}]},
+      {t:"The Portal", a:"Green. Facing you. Two arrows.", c:[
+        {x:"Step back", e:"die"},{x:"Go forward", e:"p"},{x:"Don't move", e:"l"},{x:"Look behind", e:"l"}]},
+      {t:"The Choice", a:"The game speaks to you. 'What do you want to be?'", c:[
+        {x:"Become the new monster", e:"p"},{x:"Wake up", e:"l"},{x:"Merge with the hole", e:"pl"},{x:"Voluntary restart", e:"l"}]},
+      {t:"The Last Mouth", a:"Everything is like the beginning. You know everything.", c:[
+        {x:"Click", e:"end"},{x:"Don't click", e:"end"},{x:"Turn off the game", e:"end"},{x:"Wait", e:"end"}]}
+    ]}
+  ],
+  es: [
+    {ch:"Capítulo 1 — La Caída", lv:[
+      {t:"El Aterrizaje", a:"El suelo cruje. Cuatro puertas. Exactamente cuatro.", c:[
+        {x:"Abrir la puerta luminosa", e:"l"},{x:"Abrir la puerta dulce", e:"p"},{x:"Golpear la puerta del fondo", e:"die"},{x:"Quedarse inmóvil y escuchar", e:"l"}]},
+      {t:"La Cocina", a:"Una nevera vacía. En la encimera: una bolsa que pulsa.", c:[
+        {x:"Cogerla", e:"p"},{x:"Dejarla y registrar", e:"l"},{x:"Quemarla", e:"die"},{x:"Olerla sin cogerla", e:"pl"}]},
+      {t:"El Pasillo", a:"El pasillo es más largo que el apartamento.", c:[
+        {x:"Avanzar sin contar", e:"p"},{x:"Contar las puertas en voz alta", e:"l"},{x:"Retroceder a la cocina", e:"die"},{x:"Gritar 'es un juego'", e:"l"}]},
+      {t:"El Dormitorio", a:"Una placa bajo la almohada. El nombre es el tuyo.", c:[
+        {x:"Ponerla", e:"p"},{x:"Dejarla", e:"l"},{x:"Morderla", e:"die"},{x:"Darle la vuelta", e:"l"}]}
+    ]},
+    {ch:"Capítulo 2 — Las Piezas", lv:[
+      {t:"El Salón (el real)", a:"Una figura sentada. Tiene tu boca. Respira.", c:[
+        {x:"Hablarle", e:"l"},{x:"Cerrarle la boca", e:"die"},{x:"Sentarte a su lado", e:"pl"},{x:"Mirarlo fijamente", e:"l"}]},
+      {t:"El Baño", a:"El espejo refleja el salón del prólogo.", c:[
+        {x:"Romper el espejo", e:"p"},{x:"Atravesar el espejo", e:"die"},{x:"Escribir encima", e:"l"},{x:"Apartar la mirada", e:"p"}]},
+      {t:"El Armario", a:"Decenas de bolsas. Solo una es verde.", c:[
+        {x:"Coger la diferente", e:"l"},{x:"Cogerlo todo", e:"p"},{x:"No coger nada", e:"l"},{x:"Comer en el sitio", e:"die"}]},
+      {t:"La Puerta Cerrada", a:"Detrás: una radio de policía que crepita.", c:[
+        {x:"Escuchar en la puerta", e:"l"},{x:"Derribar la puerta", e:"p"},{x:"Llamar", e:"die"},{x:"Irse sin ruido", e:"l"}]}
+    ]},
+    {ch:"Capítulo 3 — La Cosecha", lv:[
+      {t:"El Brote", a:"Un brote verde entre dos tablas del suelo.", c:[
+        {x:"Cosechar a mano", e:"p"},{x:"Arrancarlo de golpe", e:"die"},{x:"Dejarlo crecer y observar", e:"l"},{x:"Regarlo con el vacío", e:"p"}]},
+      {t:"El Jardín Interior", a:"Una habitación convertida en jungla. Algo respira.", c:[
+        {x:"Entrar", e:"p"},{x:"Esperar a que salga", e:"l"},{x:"Prenderle fuego", e:"die"},{x:"Cantar", e:"l"}]},
+      {t:"La Transformación", a:"Las paredes son líneas de código verde.", c:[
+        {x:"Aceptar", e:"p"},{x:"Resistir", e:"l"},{x:"Negar", e:"die"},{x:"Escribir en el vacío", e:"l"}]},
+      {t:"El Primer Monstruo", a:"Pequeño. Tembloroso. Tiene tus ojos.", c:[
+        {x:"Matarlo", e:"p"},{x:"Hablarle", e:"l"},{x:"Dejarlo ir", e:"l"},{x:"Comerlo", e:"die"}]}
+    ]},
+    {ch:"Capítulo 4 — La Manada", lv:[
+      {t:"La Manada", a:"Decenas de monstruos pequeños. Todos tú.", c:[
+        {x:"Embestir", e:"p"},{x:"Negociar", e:"l"},{x:"Huir", e:"die"},{x:"Rendirse", e:"l"}]},
+      {t:"El Nido", a:"Un trono de bolsas. Un asiento vacío te espera.", c:[
+        {x:"Tomar el trono", e:"p"},{x:"Destruir el trono", e:"die"},{x:"Sentarte dentro", e:"p"},{x:"Enseñarles a destruirlo", e:"pl"}]},
+      {t:"El Herido", a:"Un monstruo moribundo te tiende una bolsa vacía.", c:[
+        {x:"Coger la bolsa", e:"p"},{x:"Curarlo", e:"l"},{x:"Rematarlo", e:"p"},{x:"Ignorarlo", e:"die"}]},
+      {t:"La Frontera", a:"Una línea amarilla. Más allá: un uniforme que brilla.", c:[
+        {x:"Cruzar la línea", e:"p"},{x:"Retroceder", e:"die"},{x:"Sentarte en la línea", e:"l"},{x:"Borrar la línea", e:"pl"}]}
+    ]},
+    {ch:"Capítulo 5 — El Inspector", lv:[
+      {t:"El Interrogatorio", a:"Tiene tus manos. Tus cicatrices. Tu voz, más vieja.", c:[
+        {x:"Negar", e:"die"},{x:"Confesar", e:"l"},{x:"Interrogarlo tú", e:"l"},{x:"Voltear la mesa", e:"p"}]},
+      {t:"El Expediente", a:"96 páginas. Tu nombre real en la portada.", c:[
+        {x:"Leerlo", e:"l"},{x:"Rasgarlo", e:"die"},{x:"Firmarlo", e:"p"},{x:"Preguntar quién lo escribió", e:"l"}]},
+      {t:"El Combate", a:"Un revólver. 47 muescas en la culata.", c:[
+        {x:"Atacar de frente", e:"p"},{x:"Atacar con comprensión", e:"l"},{x:"Huir", e:"die"},{x:"Hablar del sofá", e:"l"}]},
+      {t:"El Inspector Caído", a:"Respira. Espera tu elección.", c:[
+        {x:"Rematarlo", e:"p"},{x:"Dejarlo vivir", e:"l"},{x:"Coger su placa", e:"p"},{x:"Preguntar cómo salir", e:"l"}]}
+    ]},
+    {ch:"Capítulo 6 — El Agujero Redondo", lv:[
+      {t:"El Cursor", a:"Estás detrás de la figura. Eres el cursor.", c:[
+        {x:"Seguir el cursor", e:"l"},{x:"Ignorarlo", e:"p"},{x:"Clicar tu propia boca", e:"die"},{x:"Clicar la pared", e:"l"}]},
+      {t:"El Portal", a:"Verde. Frente a ti. Dos flechas.", c:[
+        {x:"Retroceder", e:"die"},{x:"Avanzar", e:"p"},{x:"No moverse", e:"l"},{x:"Mirar detrás", e:"l"}]},
+      {t:"La Elección", a:"El juego te habla. '¿Qué quieres ser?'", c:[
+        {x:"Volverte el nuevo monstruo", e:"p"},{x:"Despertar", e:"l"},{x:"Fusionarte con el agujero", e:"pl"},{x:"Reinicio voluntario", e:"l"}]},
+      {t:"La Última Boca", a:"Todo es como al principio. Lo sabes todo.", c:[
+        {x:"Clicar", e:"end"},{x:"No clicar", e:"end"},{x:"Apagar el juego", e:"end"},{x:"Esperar", e:"end"}]}
+    ]}
+  ],
+  nl: [
+    {ch:"Hoofdstuk 1 — De Val", lv:[
+      {t:"De Landing", a:"De vloer kraakt. Vier deuren. Precies vier.", c:[
+        {x:"Open de lichtdeur", e:"l"},{x:"Open de zoete deur", e:"p"},{x:"Klop op de achterdeur", e:"die"},{x:"Blijf stil en luister", e:"l"}]},
+      {t:"De Keuken", a:"Een lege koelkast. Op het aanrecht: een pulserend zakje.", c:[
+        {x:"Neem het", e:"p"},{x:"Laat het liggen en zoek", e:"l"},{x:"Verbrand het", e:"die"},{x:"Ruik eraan zonder te nemen", e:"pl"}]},
+      {t:"De Gang", a:"De gang is langer dan het appartement.", c:[
+        {x:"Loop zonder te tellen", e:"p"},{x:"Tel de deuren hardop", e:"l"},{x:"Ga terug naar de keuken", e:"die"},{x:"Schreeuw 'het is een spel'", e:"l"}]},
+      {t:"De Slaapkamer", a:"Een badge onder het kussen. De naam is de jouwe.", c:[
+        {x:"Doe hem om", e:"p"},{x:"Leg hem terug", e:"l"},{x:"Bijt erin", e:"die"},{x:"Draai hem om", e:"l"}]}
+    ]},
+    {ch:"Hoofdstuk 2 — De Kamers", lv:[
+      {t:"De Woonkamer (echt)", a:"Een figuur zit. Hij heeft jouw mond. Hij ademt.", c:[
+        {x:"Praat tegen hem", e:"l"},{x:"Sluit zijn mond", e:"die"},{x:"Ga naast hem zitten", e:"pl"},{x:"Staar naar hem", e:"l"}]},
+      {t:"De Badkamer", a:"De spiegel weerspiegelt de woonkamer van de proloog.", c:[
+        {x:"Breek de spiegel", e:"p"},{x:"Ga door de spiegel", e:"die"},{x:"Schrijf erop", e:"l"},{x:"Kijk weg", e:"p"}]},
+      {t:"De Kast", a:"Tientallen zakjes. Slechts één is groen.", c:[
+        {x:"Neem de andere", e:"l"},{x:"Neem alles", e:"p"},{x:"Neem niets", e:"l"},{x:"Eet ter plaatse", e:"die"}]},
+      {t:"De Vergrendelde Deur", a:"Erachter: een politieradio die knettert.", c:[
+        {x:"Luister aan de deur", e:"l"},{x:"Breek de deur", e:"p"},{x:"Klop", e:"die"},{x:"Vertrek zonder geluid", e:"l"}]}
+    ]},
+    {ch:"Hoofdstuk 3 — De Oogst", lv:[
+      {t:"De Spruit", a:"Een groene spruit tussen twee vloerplanken.", c:[
+        {x:"Oogst met de hand", e:"p"},{x:"Trek alles in één keer", e:"die"},{x:"Laat groeien en kijk", e:"l"},{x:"Geef water met de leegte", e:"p"}]},
+      {t:"De Binnentuin", a:"Een kamer veranderd in jungle. Iets ademt.", c:[
+        {x:"Ga naar binnen", e:"p"},{x:"Wacht tot het uitkomt", e:"l"},{x:"Steek het in brand", e:"die"},{x:"Zing", e:"l"}]},
+      {t:"De Transformatie", a:"De muren zijn groene codelijnen.", c:[
+        {x:"Accepteer", e:"p"},{x:"Verzet je", e:"l"},{x:"Ontken", e:"die"},{x:"Schrijf in de leegte", e:"l"}]},
+      {t:"Het Eerste Monster", a:"Klein. Bevend. Hij heeft jouw ogen.", c:[
+        {x:"Dood hem", e:"p"},{x:"Praat tegen hem", e:"l"},{x:"Laat hem gaan", e:"l"},{x:"Eet hem op", e:"die"}]}
+    ]},
+    {ch:"Hoofdstuk 4 — De Roedel", lv:[
+      {t:"De Roedel", a:"Tientallen kleine monsters. Allemaal jij.", c:[
+        {x:"Stormloop", e:"p"},{x:"Onderhandel", e:"l"},{x:"Vlucht", e:"die"},{x:"Geef je over", e:"l"}]},
+      {t:"Het Nest", a:"Een troon van zakjes. Een lege plek wacht op je.", c:[
+        {x:"Neem de troon", e:"p"},{x:"Vernietig de troon", e:"die"},{x:"Ga erin zitten", e:"p"},{x:"Leer hen hem te vernietigen", e:"pl"}]},
+      {t:"De Gewonde", a:"Een stervend monster geeft je een leeg zakje.", c:[
+        {x:"Neem het zakje", e:"p"},{x:"Genees hem", e:"l"},{x:"Maak hem af", e:"p"},{x:"Negeer hem", e:"die"}]},
+      {t:"De Grens", a:"Een gele lijn. Erachter: een uniform dat glinstert.", c:[
+        {x:"Steek de lijn over", e:"p"},{x:"Stap terug", e:"die"},{x:"Ga op de lijn zitten", e:"l"},{x:"Wis de lijn", e:"pl"}]}
+    ]},
+    {ch:"Hoofdstuk 5 — De Inspecteur", lv:[
+      {t:"Het Verhoor", a:"Hij heeft jouw handen. Jouw littekens. Jouw stem, ouder.", c:[
+        {x:"Ontken", e:"die"},{x:"Beken", e:"l"},{x:"Ondervraag hem", e:"l"},{x:"Gooi de tafel om", e:"p"}]},
+      {t:"Het Dossier", a:"96 pagina's. Je echte naam op de kaft.", c:[
+        {x:"Lees het", e:"l"},{x:"Scheur het", e:"die"},{x:"Onderteken het", e:"p"},{x:"Vraag wie het schreef", e:"l"}]},
+      {t:"Het Gevecht", a:"Een revolver. 47 inkepingen op de kolf.", c:[
+        {x:"Val frontaal aan", e:"p"},{x:"Val aan met begrip", e:"l"},{x:"Vlucht", e:"die"},{x:"Praat over de bank", e:"l"}]},
+      {t:"De Gevallen Inspecteur", a:"Hij ademt. Hij wacht op je keuze.", c:[
+        {x:"Maak hem af", e:"p"},{x:"Laat hem leven", e:"l"},{x:"Neem zijn badge", e:"p"},{x:"Vraag hoe je wegkomt", e:"l"}]}
+    ]},
+    {ch:"Hoofdstuk 6 — Het Ronde Gat", lv:[
+      {t:"De Cursor", a:"Je bent achter de figuur. Je bent de cursor.", c:[
+        {x:"Volg de cursor", e:"l"},{x:"Negeer hem", e:"p"},{x:"Klik op je eigen mond", e:"die"},{x:"Klik op de muur", e:"l"}]},
+      {t:"Het Portaal", a:"Groen. Tegenover je. Twee pijlen.", c:[
+        {x:"Stap terug", e:"die"},{x:"Ga vooruit", e:"p"},{x:"Beweeg niet", e:"l"},{x:"Kijk achter", e:"l"}]},
+      {t:"De Keuze", a:"Het spel spreekt je aan. 'Wat wil je zijn?'", c:[
+        {x:"Word het nieuwe monster", e:"p"},{x:"Word wakker", e:"l"},{x:"Versmelt met het gat", e:"pl"},{x:"Vrijwillige restart", e:"l"}]},
+      {t:"De Laatste Mond", a:"Alles is zoals in het begin. Je weet alles.", c:[
+        {x:"Klik", e:"end"},{x:"Klik niet", e:"end"},{x:"Zet het spel uit", e:"end"},{x:"Wacht", e:"end"}]}
+    ]}
+  ],
+  it: [
+    {ch:"Capitolo 1 — La Caduta", lv:[
+      {t:"L'Atterraggio", a:"Il pavimento scricchiola. Quattro porte. Esattamente quattro.", c:[
+        {x:"Apri la porta luminosa", e:"l"},{x:"Apri la porta dolce", e:"p"},{x:"Bussa alla porta in fondo", e:"die"},{x:"Rimani immobile e ascolta", e:"l"}]},
+      {t:"La Cucina", a:"Un frigo vuoto. Sul piano: un sacchetto che pulsa.", c:[
+        {x:"Prendilo", e:"p"},{x:"Lascialo e cerca", e:"l"},{x:"Brucialo", e:"die"},{x:"Annusalo senza prenderlo", e:"pl"}]},
+      {t:"Il Corridoio", a:"Il corridoio è più lungo dell'appartamento.", c:[
+        {x:"Avanza senza contare", e:"p"},{x:"Conta le porte ad alta voce", e:"l"},{x:"Torna in cucina", e:"die"},{x:"Grida 'è un gioco'", e:"l"}]},
+      {t:"La Camera", a:"Un distintivo sotto il cuscino. Il nome è il tuo.", c:[
+        {x:"Indossalo", e:"p"},{x:"Rimettilo", e:"l"},{x:"Mordilo", e:"die"},{x:"Giralo", e:"l"}]}
+    ]},
+    {ch:"Capitolo 2 — Le Stanze", lv:[
+      {t:"Il Salotto (quello vero)", a:"Una figura seduta. Ha la tua bocca. Respira.", c:[
+        {x:"Parlagli", e:"l"},{x:"Chiudigli la bocca", e:"die"},{x:"Siediti accanto", e:"pl"},{x:"Fissalo", e:"l"}]},
+      {t:"Il Bagno", a:"Lo specchio riflette il salotto del prologo.", c:[
+        {x:"Rompi lo specchio", e:"p"},{x:"Attraversa lo specchio", e:"die"},{x:"Scrivi sopra", e:"l"},{x:"Distogli lo sguardo", e:"p"}]},
+      {t:"L'Armadio", a:"Decine di sacchetti. Solo uno è verde.", c:[
+        {x:"Prendi quello diverso", e:"l"},{x:"Prendi tutto", e:"p"},{x:"Non prendere niente", e:"l"},{x:"Mangia sul posto", e:"die"}]},
+      {t:"La Porta Chiusa", a:"Dietro: una radio della polizia che gracchia.", c:[
+        {x:"Ascolta alla porta", e:"l"},{x:"Sfonda la porta", e:"p"},{x:"Bussa", e:"die"},{x:"Vattene senza rumore", e:"l"}]}
+    ]},
+    {ch:"Capitolo 3 — Il Raccolto", lv:[
+      {t:"Il Germoglio", a:"Un germoglio verde tra due assi del pavimento.", c:[
+        {x:"Raccogli a mano", e:"p"},{x:"Strappa tutto in una volta", e:"die"},{x:"Lascialo crescere e osserva", e:"l"},{x:"Annaffialo con il vuoto", e:"p"}]},
+      {t:"Il Giardino Interno", a:"Una stanza diventata giungla. Qualcosa respira.", c:[
+        {x:"Entra", e:"p"},{x:"Aspetta che esca", e:"l"},{x:"Dagli fuoco", e:"die"},{x:"Canta", e:"l"}]},
+      {t:"La Trasformazione", a:"I muri sono linee di codice verde.", c:[
+        {x:"Accetta", e:"p"},{x:"Resisti", e:"l"},{x:"Nega", e:"die"},{x:"Scrivi nel vuoto", e:"l"}]},
+      {t:"Il Primo Mostro", a:"Piccolo. Tremante. Ha i tuoi occhi.", c:[
+        {x:"Uccidilo", e:"p"},{x:"Parlagli", e:"l"},{x:"Lascialo andare", e:"l"},{x:"Mangialo", e:"die"}]}
+    ]},
+    {ch:"Capitolo 4 — Il Branco", lv:[
+      {t:"Il Branco", a:"Decine di piccoli mostri. Tutti te.", c:[
+        {x:"Carica", e:"p"},{x:"Negozi", e:"l"},{x:"Fuggi", e:"die"},{x:"Arrenditi", e:"l"}]},
+      {t:"Il Nido", a:"Un trono di sacchetti. Un posto vuoto ti aspetta.", c:[
+        {x:"Prendi il trono", e:"p"},{x:"Distruggi il trono", e:"die"},{x:"Siediti dentro", e:"p"},{x:"Insegna loro a distruggerlo", e:"pl"}]},
+      {t:"Il Ferito", a:"Un mostro morente ti porge un sacchetto vuoto.", c:[
+        {x:"Prendi il sacchetto", e:"p"},{x:"Curalo", e:"l"},{x:"Finiscilo", e:"p"},{x:"Ignoralo", e:"die"}]},
+      {t:"Il Confine", a:"Una linea gialla. Oltre: un'uniforme che brilla nel buio.", c:[
+        {x:"Attraversa la linea", e:"p"},{x:"Torna indietro", e:"die"},{x:"Siediti sulla linea", e:"l"},{x:"Cancella la linea", e:"pl"}]}
+    ]},
+    {ch:"Capitolo 5 — L'Ispettore", lv:[
+      {t:"L'Interrogatorio", a:"Ha le tue mani. Le tue cicatrici. La tua voce, più vecchia.", c:[
+        {x:"Nega", e:"die"},{x:"Confessa", e:"l"},{x:"Interrogalo tu", e:"l"},{x:"Rovescia il tavolo", e:"p"}]},
+      {t:"Il Fascicolo", a:"96 pagine. Il tuo vero nome sulla copertina.", c:[
+        {x:"Leggilo", e:"l"},{x:"Strappalo", e:"die"},{x:"Firmalo", e:"p"},{x:"Chiedi chi l'ha scritto", e:"l"}]},
+      {t:"Il Combattimento", a:"Una rivoltella. 47 tacche sul calcio.", c:[
+        {x:"Attacca frontalmente", e:"p"},{x:"Attacca con comprensione", e:"l"},{x:"Fuggi", e:"die"},{x:"Parla del divano", e:"l"}]},
+      {t:"L'Ispettore Caduto", a:"Respira. Aspetta la tua scelta.", c:[
+        {x:"Finiscilo", e:"p"},{x:"Lascialo vivere", e:"l"},{x:"Prendi il distintivo", e:"p"},{x:"Chiedi come uscire", e:"l"}]}
+    ]},
+    {ch:"Capitolo 6 — Il Buco Rotondo", lv:[
+      {t:"Il Cursore", a:"Sei dietro la figura. Sei il cursore.", c:[
+        {x:"Segui il cursore", e:"l"},{x:"Ignoralo", e:"p"},{x:"Clicca la tua bocca", e:"die"},{x:"Clicca il muro", e:"l"}]},
+      {t:"Il Portale", a:"Verde. Di fronte a te. Due frecce.", c:[
+        {x:"Indietreggia", e:"die"},{x:"Vai avanti", e:"p"},{x:"Non muoverti", e:"l"},{x:"Guarda dietro", e:"l"}]},
+      {t:"La Scelta", a:"Il gioco ti parla. 'Cosa vuoi essere?'", c:[
+        {x:"Diventa il nuovo mostro", e:"p"},{x:"Svegliati", e:"l"},{x:"Fonditi con il buco", e:"pl"},{x:"Restart volontario", e:"l"}]},
+      {t:"L'Ultima Bocca", a:"Tutto è come all'inizio. Sai tutto.", c:[
+        {x:"Clicca", e:"end"},{x:"Non cliccare", e:"end"},{x:"Spegni il gioco", e:"end"},{x:"Aspetta", e:"end"}]}
+    ]}
+  ]
+};
+
+/* ============================================================
+   LANGUE
+   ============================================================ */
+let currentLang = 'fr';
+function t(key) { return I18N[currentLang][key] || I18N.fr[key]; }
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  /* UI */
+  document.getElementById('mainTitle').textContent = t('title');
+  document.getElementById('mainSubtitle').textContent = t('subtitle');
+  document.getElementById('btnGreen').textContent = t('btnGreen');
+  document.getElementById('btnGame').textContent = t('btnGame');
+  document.getElementById('btnWhite').textContent = t('btnWhite');
+  document.getElementById('btnBackV').textContent = t('back');
+  document.getElementById('btnBackG').textContent = t('back');
+  document.getElementById('btnBackW').textContent = t('back');
+  document.getElementById('greenTitle').textContent = t('greenTitle');
+  document.getElementById('whiteTitle').textContent = t('whiteTitle');
+  document.getElementById('nextBtn').textContent = t('next');
+  document.getElementById('prevBtn').textContent = t('prev');
+  /* GAME */
+  document.getElementById('gameTitle').textContent = t('gTitle');
+  document.getElementById('lblP').textContent = t('lblP');
+  document.getElementById('lblL').textContent = t('lblL');
+  document.getElementById('lblR').textContent = t('lblR');
+  /* Reset game display to reflect new lang */
+  renderGame();
+}
+
+/* ============================================================
+   VUES
+   ============================================================ */
+function switchView(viewId) {
+  document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+  document.getElementById(viewId).classList.add('active');
+  if (viewId === 'viewGame') resetGame();
+}
+
+/* ============================================================
+   MENU VERTE (dispensaire — inchangé)
+   ============================================================ */
+const communesData = {
+  "Saint-Gilles": { dist: 0, min: 20 }, "Anderlecht": { dist: 3.5, min: 40 }, "Auderghem": { dist: 7.0, min: 40 },
+  "Berchem-Sainte-Agathe": { dist: 6.5, min: 40 }, "Bruxelles-Ville": { dist: 2.5, min: 40 }, "Etterbeek": { dist: 4.0, min: 40 },
+  "Evere": { dist: 7.5, min: 40 }, "Ganshoren": { dist: 6.0, min: 40 }, "Ixelles": { dist: 2.0, min: 40 },
+  "Jette": { dist: 6.0, min: 40 }, "Koekelberg": { dist: 4.5, min: 40 }, "Molenbeek-Saint-Jean": { dist: 3.5, min: 40 },
+  "Saint-Josse-ten-Noode": { dist: 3.5, min: 40 }, "Schaarbeek": { dist: 5.0, min: 40 }, "Uccle": { dist: 4.0, min: 40 },
+  "Watermael-Boitsfort": { dist: 6.5, min: 40 }, "Woluwe-Saint-Lambert": { dist: 7.5, min: 40 }, "Woluwe-Saint-Pierre": { dist: 8.0, min: 40 }
+};
+let currentPage = 1; const totalPages = 4;
+function updateUI() {
+  document.getElementById('pageCounter').textContent = `${t('page')} ${currentPage} / ${totalPages}`;
+  document.getElementById('prevBtn').disabled = currentPage === 1;
+  document.getElementById('nextBtn').disabled = currentPage === totalPages;
+  for (let i = 1; i <= totalPages; i++) {
+    const page = document.getElementById(`page${i}`);
+    if (i < currentPage) page.style.zIndex = i; else page.style.zIndex = totalPages - i + 1;
+  }
+}
+function nextPage() { if (currentPage < totalPages) { document.getElementById(`page${currentPage}`).classList.add('flipped'); currentPage++; updateUI(); } }
+function prevPage() { if (currentPage > 1) { currentPage--; document.getElementById(`page${currentPage}`).classList.remove('flipped'); updateUI(); } }
+
+function calculateOrderGreen() {
+  const qtySelects = document.querySelectorAll('.qty-select-green');
+  let totalGrams = 0; let price = 0;
+  qtySelects.forEach(s => { const q = parseInt(s.value)||0; const ppg = parseInt(s.getAttribute('data-price'))||0; totalGrams+=q; price+=(q*ppg); });
+  const commune = document.getElementById('communeSelectGreen').value;
+  const info = communesData[commune] || communesData["Saint-Gilles"];
+  let timeText = commune === "Saint-Gilles" ? "2 min - 5 min" : `${Math.round((info.dist/25)*60)+5} min - ${Math.round((info.dist/25)*60)+10} min`;
+  document.getElementById('totalGramsGreen').textContent = `${totalGrams} g`;
+  document.getElementById('totalPriceGreen').textContent = `${price} €`;
+  document.getElementById('deliveryTimeGreen').textContent = timeText;
+  const w = document.getElementById('minWarningGreen'); const wa = document.getElementById('whatsappBtnGreen');
+  if (totalGrams === 0) { w.style.display='none'; wa.style.display='none'; return {isValid:false}; }
+  if (price < info.min) { w.style.display='block'; w.innerHTML=`⚠️ <b>Minimum ${info.min}€ requis</b> pour ${commune}.<br>Panier actuel: ${price}€.`; wa.style.display='none'; return {isValid:false}; }
+  w.style.display='none'; wa.style.display='flex'; return {price, totalGrams, commune, timeText, isValid:true};
+}
+function sendOrderGreen(e) {
+  const o = calculateOrderGreen(); const addr = document.getElementById('addressInputGreen').value.trim();
+  if (!o.isValid) { e.preventDefault(); return false; }
+  if (!addr) { alert("Adresse requise."); e.preventDefault(); return false; }
+  let items = ""; document.querySelectorAll('.qty-select-green').forEach(s => { const v = parseInt(s.value); if (v>0) items += `• ${s.dataset.strain}: ${v}g\n`; });
+  const msg = `🛸 *COMMANDE C-137 (VERTE)*\n---\n🌿 ${items}\n📊 TOTAL: ${o.totalGrams}g → *${o.price}€*\n📍 ${o.commune}\n🏠 ${addr}\n⏱️ ${o.timeText}`;
+  window.open(`https://wa.me/212617251571?text=${encodeURIComponent(msg)}`, '_blank'); e.preventDefault(); return true;
+}
+
+const whitePrices = {0:0,1:50,2:80,3:120,4:150};
+function calculateOrderWhite() {
+  const q = parseInt(document.getElementById('qtySelectWhite').value)||0;
+  const p = whitePrices[q]||0;
+  const commune = document.getElementById('communeSelectWhite').value;
+  const info = communesData[commune] || communesData["Saint-Gilles"];
+  let timeText = commune === "Saint-Gilles" ? "2 min - 5 min" : `${Math.round((info.dist/25)*60)+5} min - ${Math.round((info.dist/25)*60)+10} min`;
+  document.getElementById('totalPriceWhite').textContent = `${p} €`;
+  document.getElementById('deliveryTimeWhite').textContent = timeText;
+  const wa = document.getElementById('whatsappBtnWhite');
+  if (q>0) { wa.style.display='flex'; return {price:p, qty:q, commune, timeText, isValid:true}; }
+  wa.style.display='none'; return {isValid:false};
+}
+function sendOrderWhite(e) {
+  const o = calculateOrderWhite(); const addr = document.getElementById('addressInputWhite').value.trim();
+  if (!o.isValid) { e.preventDefault(); return false; }
+  if (!addr) { alert("Adresse requise."); e.preventDefault(); return false; }
+  const msg = `🛸 *COMMANDE C-137 (BLANCHE)*\n---\n⚪ Quantité: ${o.qty} → *${o.price}€*\n📍 ${o.commune}\n🏠 ${addr}\n⏱️ ${o.timeText}`;
+  window.open(`https://wa.me/212617251571?text=${encodeURIComponent(msg)}`, '_blank'); e.preventDefault(); return true;
+}
+
+/* ============================================================
+   JEU — LE TROU ROND
+   ============================================================ */
+let gState = { ch:0, lv:0, p:0, l:0, r:0, phase:'prologue', lastResult:'', ended:false, choiceLocked:false };
+
+function resetGame() {
+  gState = { ch:0, lv:0, p:0, l:0, r:0, phase:'prologue', lastResult:'', ended:false, choiceLocked:false };
+  renderGame();
+}
+
+function renderStats() {
+  document.getElementById('statP').textContent = gState.p;
+  document.getElementById('statL').textContent = gState.l;
+  document.getElementById('statR').textContent = gState.r;
+}
+
+function renderGame() {
+  renderStats();
+  const st = document.getElementById('stageTitle');
+  const amb = document.getElementById('ambient');
+  const ch = document.getElementById('choices');
+  const res = document.getElementById('result');
+  const btn = document.getElementById('mainActionBtn');
+  ch.innerHTML = '';
+  btn.style.display = 'none';
+
+  if (gState.phase === 'prologue') {
+    st.textContent = t('prologueTitle');
+    amb.textContent = t('prologueAmbient');
+    res.textContent = t('clickToStart');
+    btn.style.display = 'block';
+    btn.textContent = t('clickBtn');
+    btn.onclick = () => { gState.phase = 'choice'; gState.lastResult = ''; renderGame(); };
+    return;
   }
 
-  const communesData = {
-    "Saint-Gilles": { dist: 0, min: 20 },
-    "Anderlecht": { dist: 3.5, min: 40 },
-    "Auderghem": { dist: 7.0, min: 40 },
-    "Berchem-Sainte-Agathe": { dist: 6.5, min: 40 },
-    "Bruxelles-Ville": { dist: 2.5, min: 40 },
-    "Etterbeek": { dist: 4.0, min: 40 },
-    "Evere": { dist: 7.5, min: 40 },
-    "Ganshoren": { dist: 6.0, min: 40 },
-    "Ixelles": { dist: 2.0, min: 40 },
-    "Jette": { dist: 6.0, min: 40 },
-    "Koekelberg": { dist: 4.5, min: 40 },
-    "Molenbeek-Saint-Jean": { dist: 3.5, min: 40 },
-    "Saint-Josse-ten-Noode": { dist: 3.5, min: 40 },
-    "Schaarbeek": { dist: 5.0, min: 40 },
-    "Uccle": { dist: 4.0, min: 40 },
-    "Watermael-Boitsfort": { dist: 6.5, min: 40 },
-    "Woluwe-Saint-Lambert": { dist: 7.5, min: 40 },
-    "Woluwe-Saint-Pierre": { dist: 8.0, min: 40 }
-  };
-
-  /* MENU VERTE */
-  let currentPage = 1;
-  const totalPages = 4;
-
-  function updateUI() {
-    document.getElementById('pageCounter').textContent = `Page ${currentPage} / ${totalPages}`;
-    document.getElementById('prevBtn').disabled = currentPage === 1;
-    document.getElementById('nextBtn').disabled = currentPage === totalPages;
-
-    for (let i = 1; i <= totalPages; i++) {
-      const page = document.getElementById(`page${i}`);
-      if (i < currentPage) page.style.zIndex = i;
-      else page.style.zIndex = totalPages - i + 1;
-    }
+  if (gState.phase === 'end') {
+    st.textContent = t('endMsg');
+    amb.textContent = gState.lastResult;
+    res.textContent = '';
+    btn.style.display = 'block';
+    btn.textContent = t('restartBtn');
+    btn.onclick = () => { resetGame(); };
+    return;
   }
 
-  function nextPage() {
-    if (currentPage < totalPages) {
-      document.getElementById(`page${currentPage}`).classList.add('flipped');
-      currentPage++;
-      updateUI();
-    }
-  }
+  /* PLAY */
+  const chapter = GAME[currentLang][gState.ch];
+  const level = chapter.lv[gState.lv];
+  st.textContent = chapter.ch + " · " + level.t;
+  amb.textContent = level.a;
+  res.textContent = gState.lastResult || "";
 
-  function prevPage() {
-    if (currentPage > 1) {
-      currentPage--;
-      document.getElementById(`page${currentPage}`).classList.remove('flipped');
-      updateUI();
-    }
-  }
-
-  function calculateOrderGreen() {
-    const qtySelects = document.querySelectorAll('.qty-select-green');
-    let totalGrams = 0;
-    let price = 0;
-
-    qtySelects.forEach(select => {
-      const qty = parseInt(select.value) || 0;
-      const pricePerGram = parseInt(select.getAttribute('data-price')) || 0;
-      totalGrams += qty;
-      price += (qty * pricePerGram);
-    });
-
-    const commune = document.getElementById('communeSelectGreen').value;
-    const communeInfo = communesData[commune] || communesData["Saint-Gilles"];
-
-    let timeText = commune === "Saint-Gilles" ? "2 min - 5 min" : `${Math.round((communeInfo.dist / 25) * 60) + 5} min - ${Math.round((communeInfo.dist / 25) * 60) + 10} min`;
-
-    document.getElementById('totalGramsGreen').textContent = `${totalGrams} g`;
-    document.getElementById('totalPriceGreen').textContent = `${price} €`;
-    document.getElementById('deliveryTimeGreen').textContent = timeText;
-
-    const minWarning = document.getElementById('minWarningGreen');
-    const whatsappBtn = document.getElementById('whatsappBtnGreen');
-
-    if (totalGrams === 0) {
-      minWarning.style.display = 'none';
-      whatsappBtn.style.display = 'none';
-      return { isValid: false };
-    }
-
-    if (price < communeInfo.min) {
-      minWarning.style.display = 'block';
-      minWarning.innerHTML = `⚠️ <b>Minimum de ${communeInfo.min}€ requis</b> pour la commune de ${commune}.<br>Votre panier est actuellement de ${price}€.`;
-      whatsappBtn.style.display = 'none';
-      return { isValid: false };
-    } else {
-      minWarning.style.display = 'none';
-      whatsappBtn.style.display = 'flex';
-      return { price, totalGrams, commune, timeText, isValid: true };
-    }
-  }
-
-  function sendOrderGreen(event) {
-    const order = calculateOrderGreen();
-    const address = document.getElementById('addressInputGreen').value.trim();
-
-    if (!order.isValid) { event.preventDefault(); return false; }
-    if (!address) { alert("Veuillez indiquer votre adresse exacte avant de valider."); event.preventDefault(); return false; }
-
-    let itemsText = "";
-    document.querySelectorAll('.qty-select-green').forEach(select => {
-      const val = parseInt(select.value);
-      if (val > 0) itemsText += `• ${select.dataset.strain} : ${val}g\n`;
-    });
-
-    const phoneNumber = "212617251571";
-    const message = 
-`🛸 *NOUVELLE COMMANDE C-137 (MENU VERTE)* 🛸
-----------------------------------
-🌿 *PRODUITS :*
-${itemsText}
-📊 *TOTAL :* ${order.totalGrams}g -> *${order.price} €*
-📍 *COMMUNE :* ${order.commune}
-🏠 *ADRESSE :* ${address}
-⏱️ *TEMPS ESTIMÉ :* ${order.timeText}
-----------------------------------`;
-
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-    event.preventDefault();
-    return true;
-  }
-
-  /* MENU BLANCHE */
-  const whitePrices = { 0: 0, 1: 50, 2: 80, 3: 120, 4: 150 };
-
-  function calculateOrderWhite() {
-    const qty = parseInt(document.getElementById('qtySelectWhite').value) || 0;
-    const price = whitePrices[qty] || 0;
-    const commune = document.getElementById('communeSelectWhite').value;
-    const communeInfo = communesData[commune] || communesData["Saint-Gilles"];
-
-    let timeText = commune === "Saint-Gilles" ? "2 min - 5 min" : `${Math.round((communeInfo.dist / 25) * 60) + 5} min - ${Math.round((communeInfo.dist / 25) * 60) + 10} min`;
-
-    document.getElementById('totalPriceWhite').textContent = `${price} €`;
-    document.getElementById('deliveryTimeWhite').textContent = timeText;
-
-    const whatsappBtn = document.getElementById('whatsappBtnWhite');
-    if (qty > 0) {
-      whatsappBtn.style.display = 'flex';
-      return { price, qty, commune, timeText, isValid: true };
-    } else {
-      whatsappBtn.style.display = 'none';
-      return { isValid: false };
-    }
-  }
-
-  function sendOrderWhite(event) {
-    const order = calculateOrderWhite();
-    const address = document.getElementById('addressInputWhite').value.trim();
-
-    if (!order.isValid) { event.preventDefault(); return false; }
-    if (!address) { alert("Veuillez indiquer votre adresse exacte avant de valider."); event.preventDefault(); return false; }
-
-    const phoneNumber = "212617251571";
-    const message = 
-`🛸 *NOUVELLE COMMANDE C-137 (MENU BLANCHE)* 🛸
-----------------------------------
-⚪ *QUANTITÉ :* ${order.qty} -> *${order.price} €*
-📍 *COMMUNE :* ${order.commune}
-🏠 *ADRESSE :* ${address}
-⏱️ *TEMPS ESTIMÉ :* ${order.timeText}
-----------------------------------`;
-
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-    event.preventDefault();
-    return true;
-  }
-
-  /* JEU PIXEL ART */
-  let gameStep = 0;
-  let clickCount = 0;
-  let canvas, ctx;
-
-  function initGame() {
-    canvas = document.getElementById('gameCanvas');
-    ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
-    gameStep = 0;
-    clickCount = 0;
-    renderGame();
-  }
-
-  function advanceGame() {
-    if (gameStep === 0) { gameStep = 1; clickCount = 0; }
-    else if (gameStep === 1) { clickCount++; if (clickCount >= 3) { gameStep = 2; clickCount = 0; } }
-    else if (gameStep === 2) { gameStep = 3; }
-    else if (gameStep === 3) { gameStep = 4; }
-    else if (gameStep === 4) { clickCount++; if (clickCount >= 3) { gameStep = 5; clickCount = 0; } }
-    else if (gameStep === 5) { gameStep = 6; }
-    else if (gameStep === 6) { gameStep = 0; clickCount = 0; }
-    renderGame();
-  }
-
-  function renderGame() {
-    ctx.fillStyle = "#0b0c10";
-    ctx.fillRect(0, 0, 32, 32);
-
-    const title = document.getElementById('gameStageTitle');
-    const btn = document.getElementById('gameActionBtn');
-    const status = document.getElementById('gameStatus');
-
-    if (gameStep === 0) {
-      title.textContent = "1. TERRE AU REPOS";
-      btn.textContent = "🌱 Planter la graine";
-      status.textContent = "Mettez la graine en terre...";
-      ctx.fillStyle = "#8b4513"; ctx.fillRect(10, 22, 12, 8);
-      ctx.fillStyle = "#5a2d0c"; ctx.fillRect(9, 20, 14, 2);
-    } 
-    else if (gameStep === 1) {
-      title.textContent = "2. ARROSAGE";
-      btn.textContent = `💧 Arroser (${clickCount}/3)`;
-      status.textContent = "Arrosez pour faire pousser la plante !";
-      ctx.fillStyle = "#8b4513"; ctx.fillRect(10, 22, 12, 8);
-      ctx.fillStyle = "#5a2d0c"; ctx.fillRect(9, 20, 14, 2);
-      ctx.fillStyle = "#39ff14";
-      if (clickCount >= 1) ctx.fillRect(15, 18, 2, 3);
-      if (clickCount >= 2) { ctx.fillRect(14, 16, 4, 3); ctx.fillRect(12, 16, 2, 1); }
-    }
-    else if (gameStep === 2) {
-      title.textContent = "3. PLANTE MATURE";
-      btn.textContent = "✂️ Récolter / Couper";
-      status.textContent = "La plante a grandi ! Coupez les fleurs.";
-      ctx.fillStyle = "#8b4513"; ctx.fillRect(10, 22, 12, 8);
-      ctx.fillStyle = "#5a2d0c"; ctx.fillRect(9, 20, 14, 2);
-      ctx.fillStyle = "#1e824c"; ctx.fillRect(15, 8, 2, 12);
-      ctx.fillStyle = "#39ff14";
-      ctx.fillRect(12, 10, 8, 3); ctx.fillRect(10, 14, 12, 3); ctx.fillRect(14, 6, 4, 3);
-    }
-    else if (gameStep === 3) {
-      title.textContent = "4. SÉCHAGE";
-      btn.textContent = "☀️ Obtenir fleurs compactes";
-      status.textContent = "Faites sécher les fleurs coupées.";
-      ctx.fillStyle = "#45a29e"; ctx.fillRect(4, 4, 24, 1);
-      ctx.fillStyle = "#27ae60"; ctx.fillRect(8, 5, 4, 6); ctx.fillRect(20, 5, 4, 6);
-    }
-    else if (gameStep === 4) {
-      title.textContent = "5. BROYAGE";
-      btn.textContent = `🔄 Broyer au grinder (${clickCount}/3)`;
-      status.textContent = "Broyez vos fleurs compactes.";
-      ctx.fillStyle = "#7f8c8d"; ctx.beginPath(); ctx.arc(16, 16, 10, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = clickCount % 2 === 0 ? "#39ff14" : "#27ae60";
-      ctx.fillRect(12, 12, 8, 8);
-    }
-    else if (gameStep === 5) {
-      title.textContent = "6. ROULEAU";
-      btn.textContent = "🚬 Rouler le joint";
-      status.textContent = "L'herbe est prête ! Roulez un joint.";
-      ctx.fillStyle = "#ecf0f1"; ctx.fillRect(6, 14, 20, 6);
-      ctx.fillStyle = "#27ae60"; ctx.fillRect(8, 15, 16, 2);
-    }
-    else if (gameStep === 6) {
-      title.textContent = "🎉 C'EST PRÊT !";
-      btn.textContent = "🔄 Recommencer";
-      status.textContent = "Joint parfait ! Prêt pour le voyage C-137.";
-      ctx.fillStyle = "#ecf0f1"; ctx.fillRect(6, 15, 18, 3);
-      ctx.fillStyle = "#e74c3c"; ctx.fillRect(24, 15, 2, 3);
-      ctx.fillStyle = "#7f8c8d"; ctx.fillRect(4, 15, 2, 3);
-      ctx.fillStyle = "rgba(255,255,255,0.6)";
-      ctx.fillRect(27, 12, 2, 2); ctx.fillRect(29, 9, 2, 2); ctx.fillRect(28, 6, 2, 2);
-    }
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (document.getElementById('viewMenuVerte').classList.contains('active')) {
-      if (e.key === 'ArrowRight') nextPage();
-      if (e.key === 'ArrowLeft') prevPage();
-    }
+  level.c.forEach((choice, idx) => {
+    const b = document.createElement('button');
+    b.className = 'game-choice';
+    const marks = ['🅐','🅑','🅒','🅓'];
+    b.innerHTML = `<span class="mark">${marks[idx]}</span>${choice.x}`;
+    b.onclick = () => handleChoice(choice.e, idx);
+    ch.appendChild(b);
   });
 
-  let touchStartX = 0;
-  const book = document.getElementById('book');
-  book.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-  book.addEventListener('touchend', (e) => {
-    let touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 40) nextPage();
-    if (touchEndX - touchStartX > 40) prevPage();
-  }, { passive: true });
+  if (gState.choiceLocked) {
+    btn.style.display = 'block';
+    btn.textContent = t('advanceBtn');
+    btn.onclick = () => { gState.choiceLocked = false; gState.lastResult=''; renderGame(); };
+  }
+}
 
-  updateUI();
-  calculateOrderGreen();
-  calculateOrderWhite();
+function handleChoice(effect, idx) {
+  if (gState.choiceLocked) return;
+
+  if (effect === 'die') {
+    gState.r++;
+    gState.lastResult = t('dieMsg') + " (RESETS: " + gState.r + ")";
+    renderStats();
+    const card = document.getElementById('gameCard');
+    card.classList.add('death-flash');
+    setTimeout(() => card.classList.remove('death-flash'), 500);
+    gState.choiceLocked = true;
+    /* Reset progression but keep resets */
+    gState.ch = 0; gState.lv = 0; gState.p = 0; gState.l = 0;
+    renderGame();
+    /* Show death, then advance button visible */
+    return;
+  }
+
+  if (effect === 'end') {
+    /* Ending depends on stats */
+    let endingKey = 'endPantin';
+    if (gState.p >= 5 && gState.l >= 5) endingKey = 'endTrou';
+    else if (gState.p >= 5) endingKey = 'endInspecteur';
+    else if (gState.l >= 5) endingKey = 'endReveil';
+    gState.phase = 'end';
+    gState.lastResult = t(endingKey) + " (P:"+gState.p+" L:"+gState.l+" R:"+gState.r+")";
+    renderGame();
+    return;
+  }
+
+  /* Apply effect */
+  if (effect === 'p') gState.p++;
+  else if (effect === 'l') gState.l++;
+  else if (effect === 'pl') { gState.p++; gState.l++; }
+
+  gState.lastResult = `✔ (+${effect === 'pl' ? '1🔴 +1🔵' : (effect === 'p' ? '1🔴' : '1🔵')})`;
+  /* Advance level */
+  gState.lv++;
+  if (gState.lv >= 4) {
+    gState.lv = 0;
+    gState.ch++;
+    if (gState.ch >= GAME[currentLang].length) {
+      /* Loop back to Ch6 or ending; here we cap at last chapter */
+      gState.ch = GAME[currentLang].length - 1;
+      gState.lv = 3;
+    }
+  }
+  gState.choiceLocked = true;
+  renderGame();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+updateUI();
+calculateOrderGreen();
+calculateOrderWhite();
+renderGame();
+
+/* swipes */
+let touchStartX = 0;
+const book = document.getElementById('book');
+book.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+book.addEventListener('touchend', (e) => { const dx = e.changedTouches[0].screenX - touchStartX; if (dx < -40) nextPage(); if (dx > 40) prevPage(); }, { passive: true });
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('viewMenuVerte').classList.contains('active')) {
+    if (e.key === 'ArrowRight') nextPage(); if (e.key === 'ArrowLeft') prevPage();
+  }
+});
 </script>
-
 </body>
 </html>
